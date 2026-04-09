@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Finance Mini Book — Taiwan</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+:root {
+  --bg-a: #0d0f1a;
+  --bg-b: #111428;
+  --glass: rgba(255,255,255,0.045);
+  --glass-hover: rgba(255,255,255,0.075);
+  --glass-strong: rgba(255,255,255,0.09);
+  --text: #e8ecff;
+  --text-dim: #8892b8;
+  --blue: #5b8cff;
+  --blue-light: #7ba5ff;
+  --purple: #a67cff;
+  --cyan: #4dd9ff;
+  --pink: #ff6eb4;
+  --green: #43e8a0;
+  --border: rgba(160,180,255,0.1);
+  --border-glow: rgba(91,140,255,0.35);
+  --shadow: 0 24px 60px rgba(0,0,10,0.5);
+  --card-bg: rgba(255,255,255,0.04);
+  --card-bg-hover: rgba(255,255,255,0.08);
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --font: 'Sora', 'Noto Sans TC', sans-serif;
+  --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg-a);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Ambient background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(91,140,255,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 90%, rgba(166,124,255,0.1) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 60% 40%, rgba(77,217,255,0.06) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── HERO ─── */
+.hero {
+  background: linear-gradient(135deg, rgba(91,140,255,0.25) 0%, rgba(166,124,255,0.2) 60%, rgba(77,217,255,0.15) 100%);
+  border: 1px solid rgba(160,180,255,0.18);
+  border-radius: 32px;
+  padding: 40px 36px 36px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(91,140,255,0.18), transparent 70%);
+  top: -80px; right: -60px;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(166,124,255,0.14), transparent 70%);
+  bottom: -60px; left: -40px;
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(91,140,255,0.15);
+  border: 1px solid rgba(91,140,255,0.3);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--blue-light);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  position: relative; z-index: 1;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, #fff 30%, #c4d4ff 70%, #b8a0ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative; z-index: 1;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-dim);
+  max-width: 760px;
+  position: relative; z-index: 1;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  position: relative; z-index: 1;
+}
+
+.hero-tag {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  transition: var(--transition);
+}
+
+.hero-tag:hover {
+  background: rgba(255,255,255,0.12);
+  color: var(--text);
+}
+
+/* ─── PROGRESS BAR (top) ─── */
+.hero-progress {
+  margin-top: 22px;
+  position: relative; z-index: 1;
+}
+
+.hero-progress-label {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-progress-label strong {
+  color: var(--text);
+  font-size: 0.92rem;
+}
+
+.progress-track {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple));
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  border-radius: 999px;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 20px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4));
+  border-radius: 999px;
+}
+
+/* ─── TOOLBAR ─── */
+.toolbar {
+  margin-top: 20px;
+  position: sticky;
+  top: 12px;
+  z-index: 50;
+  background: rgba(13,15,26,0.82);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(160,180,255,0.12);
+  border-radius: 20px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+
+.toolbar-grid {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.5fr) 170px repeat(4, auto);
+  gap: 10px;
+  align-items: center;
+}
+
+input, select {
+  font: inherit;
+  border: 1px solid rgba(160,180,255,0.15);
+  outline: 0;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+  padding: 11px 14px;
+  transition: var(--transition);
+}
+
+input::placeholder { color: var(--text-dim); }
+
+input:focus, select:focus {
+  border-color: rgba(91,140,255,0.5);
+  background: rgba(91,140,255,0.07);
+  box-shadow: 0 0 0 3px rgba(91,140,255,0.1);
+}
+
+select option { background: #1a1d30; color: var(--text); }
+
+button {
+  font: inherit;
+  border: 1px solid rgba(160,180,255,0.15);
+  outline: 0;
+  border-radius: var(--radius-md);
+  padding: 11px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  background: rgba(255,255,255,0.05);
+  transition: var(--transition);
+  white-space: nowrap;
+  user-select: none;
+}
+
+button:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--text);
+  border-color: rgba(160,180,255,0.25);
+  transform: translateY(-1px);
+}
+
+button:active { transform: translateY(0); }
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  border-color: transparent;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(91,140,255,0.3);
+}
+
+.btn-accent:hover {
+  box-shadow: 0 8px 28px rgba(91,140,255,0.45);
+  color: #fff;
+  background: linear-gradient(135deg, #6f9dff, #b78fff);
+}
+
+.btn-accent.is-active {
+  background: linear-gradient(135deg, #3d70ff, #8960ff);
+  box-shadow: 0 4px 20px rgba(91,140,255,0.5), inset 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+.btn-study {
+  background: linear-gradient(135deg, rgba(77,217,255,0.25), rgba(67,232,160,0.2));
+  border-color: rgba(77,217,255,0.3);
+  color: var(--cyan);
+}
+
+.btn-study:hover { color: var(--cyan); background: linear-gradient(135deg, rgba(77,217,255,0.35), rgba(67,232,160,0.3)); }
+.btn-study.is-active {
+  background: linear-gradient(135deg, rgba(77,217,255,0.4), rgba(67,232,160,0.3));
+  border-color: var(--cyan);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(77,217,255,0.25);
+}
+
+/* ─── LAYOUT ─── */
+.layout {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+  align-items: start;
+}
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 20px;
+  backdrop-filter: blur(20px);
+}
+
+.side-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.side-links {
+  display: grid;
+  gap: 4px;
+}
+
+.side-links a {
+  text-decoration: none;
+  color: var(--text-dim);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.side-links a:hover {
+  color: var(--text);
+  background: rgba(91,140,255,0.1);
+}
+
+.side-links a .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.side-links a:hover .dot { background: var(--blue); }
+
+.side-card {
+  margin-top: 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+}
+
+.side-card h3 {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+
+.muted { color: var(--text-dim); }
+
+.side-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.88rem;
+}
+
+.stat-num {
+  font-weight: 700;
+  font-size: 1.4rem;
+  background: linear-gradient(120deg, var(--blue-light), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mini-note-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.mini-note-row .chip {
+  background: rgba(91,140,255,0.15);
+  color: var(--blue-light);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+/* ─── MAIN CONTENT ─── */
+.content {
+  display: grid;
+  gap: 24px;
+}
+
+/* ─── PANELS ─── */
+.panel, .section-box, .quiz-box {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  backdrop-filter: blur(16px);
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.mini-panel {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+.mini-panel h2, .section-header h2, .quiz-box h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.section-header { margin-bottom: 20px; }
+
+.section-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-num {
+  width: 30px; height: 30px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.mini-panel p, .section-header p, .quiz-box > p {
+  line-height: 1.8;
+  color: var(--text-dim);
+  font-size: 0.93rem;
+}
+
+/* ─── TERM CARDS ─── */
+.term-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 16px;
+}
+
+/* Flip Card */
+.flip-container {
+  perspective: 1000px;
+  height: auto;
+  min-height: 200px;
+}
+
+.flip-container.is-flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+  transform-style: preserve-3d;
+}
+
+.flip-front, .flip-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.flip-front::before, .flip-back::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple));
+  border-radius: 20px 20px 0 0;
+}
+
+.flip-front:hover, .flip-back:hover {
+  background: var(--card-bg-hover);
+  border-color: rgba(160,180,255,0.2);
+}
+
+.flip-back {
+  position: absolute;
+  top: 0; left: 0; width: 100%;
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, rgba(91,140,255,0.08), rgba(166,124,255,0.06));
+  border-color: rgba(91,140,255,0.2);
+  min-height: 100%;
+}
+
+/* Non-flip mode card */
+.term-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.term-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple));
+  border-radius: 20px 20px 0 0;
+}
+
+.term-card:hover {
+  background: var(--card-bg-hover);
+  border-color: rgba(160,180,255,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  padding: 4px 10px;
+  margin-bottom: 10px;
+}
+
+.badge-basic    { background: rgba(77,217,255,0.12); color: var(--cyan); border: 1px solid rgba(77,217,255,0.2); }
+.badge-banking  { background: rgba(91,140,255,0.12); color: var(--blue-light); border: 1px solid rgba(91,140,255,0.2); }
+.badge-income   { background: rgba(67,232,160,0.12); color: var(--green); border: 1px solid rgba(67,232,160,0.2); }
+.badge-statements { background: rgba(255,110,180,0.12); color: var(--pink); border: 1px solid rgba(255,110,180,0.2); }
+.badge-investing { background: rgba(166,124,255,0.12); color: var(--purple); border: 1px solid rgba(166,124,255,0.2); }
+
+.term {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.term-line {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.label {
+  color: var(--blue-light);
+  font-weight: 600;
+}
+
+.term-extra {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  animation: fadeSlide 0.25s ease;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.term-extra p {
+  margin-bottom: 9px;
+  line-height: 1.75;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.term-extra p:last-child { margin-bottom: 0; }
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.card-btn {
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(160,180,255,0.12);
+  color: var(--text-dim);
+}
+
+.card-btn:hover {
+  background: rgba(91,140,255,0.12);
+  border-color: rgba(91,140,255,0.3);
+  color: var(--blue-light);
+  transform: none;
+}
+
+.card-btn.learned {
+  background: rgba(67,232,160,0.12);
+  border-color: rgba(67,232,160,0.3);
+  color: var(--green);
+}
+
+/* highlight */
+mark {
+  background: rgba(255,207,77,0.3);
+  color: #ffd04d;
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+/* ─── REMEMBER BOX ─── */
+.remember-box {
+  margin-top: 18px;
+  background: linear-gradient(135deg, rgba(91,140,255,0.08), rgba(166,124,255,0.06));
+  border: 1px solid rgba(91,140,255,0.2);
+  border-left: 4px solid var(--blue);
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--text-dim);
+}
+
+.remember-box strong { color: var(--blue-light); }
+
+/* ─── QUIZ ─── */
+.quiz-box h2 { margin-bottom: 6px; }
+.quiz-box > p { margin-bottom: 18px; }
+
+.quiz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.quiz-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  transition: var(--transition);
+}
+
+.quiz-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(160,180,255,0.2);
+}
+
+.quiz-question {
+  font-weight: 600;
+  line-height: 1.6;
+  font-size: 0.93rem;
+  color: var(--text);
+}
+
+.quiz-answer {
+  display: none;
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: rgba(67,232,160,0.07);
+  border: 1px dashed rgba(67,232,160,0.25);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--green);
+  animation: fadeSlide 0.25s ease;
+}
+
+.quiz-card.answered .quiz-question::after {
+  content: ' ✓';
+  color: var(--green);
+  font-size: 0.85rem;
+}
+
+/* ─── STUDY MODE ─── */
+.study-mode-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(8,10,20,0.96);
+  backdrop-filter: blur(12px);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.study-mode-overlay.active { display: flex; }
+
+.study-card-wrapper {
+  width: 100%;
+  max-width: 480px;
+  padding: 0 24px;
+}
+
+.study-card {
+  background: linear-gradient(135deg, rgba(91,140,255,0.12), rgba(166,124,255,0.1));
+  border: 1px solid rgba(91,140,255,0.25);
+  border-radius: 28px;
+  padding: 40px 36px;
+  text-align: center;
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.study-card:hover { transform: translateY(-2px); box-shadow: 0 20px 60px rgba(91,140,255,0.2); }
+
+.study-card .sc-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.study-card .sc-english {
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, #fff, #c4d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.study-card .sc-chinese {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--blue-light);
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.study-card .sc-pinyin {
+  font-size: 1rem;
+  color: var(--text-dim);
+}
+
+.study-card .sc-tap {
+  font-size: 0.78rem;
+  color: rgba(160,180,255,0.4);
+  margin-top: 8px;
+}
+
+.study-card .sc-back {
+  display: none;
+  width: 100%;
+  text-align: left;
+}
+
+.study-card.revealed .sc-tap { display: none; }
+.study-card.revealed .sc-back { display: block; animation: fadeSlide 0.25s ease; }
+
+.study-card .sc-back p {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.study-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.study-controls button {
+  padding: 12px 24px;
+  font-size: 0.9rem;
+}
+
+.study-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  padding: 0;
+}
+
+.study-progress-text {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.study-progress-text strong { color: var(--text); }
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed;
+  right: 20px; bottom: 20px;
+  background: rgba(30,35,60,0.95);
+  border: 1px solid rgba(160,180,255,0.2);
+  color: var(--text);
+  padding: 12px 18px;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  z-index: 300;
+  font-size: 0.88rem;
+  font-weight: 500;
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 280px;
+}
+
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* ─── FOOTER ─── */
+.footer-note {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  padding: 20px 0 0;
+  opacity: 0.6;
+}
+
+/* ─── FLASHCARD MODE ─── */
+.flashcard-on .term-extra { display: none !important; }
+.flashcard-on .card-btn.toggle-example { display: none; }
+
+/* ─── HIDDEN ─── */
+.hidden-card { display: none !important; }
+.hidden-section { display: none !important; }
+
+/* ─── EMPTY STATE ─── */
+.no-results {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-dim);
+}
+
+.no-results.show { display: block; }
+.no-results .nr-icon { font-size: 3rem; margin-bottom: 12px; }
+.no-results p { font-size: 0.95rem; }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(160,180,255,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(160,180,255,0.3); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .toolbar-grid { grid-template-columns: 1fr 1fr; }
+  .toolbar-grid > *:nth-child(1) { grid-column: 1 / -1; }
+}
+
+@media (max-width: 600px) {
+  .page { padding: 16px 14px 50px; }
+  .hero { padding: 28px 22px 26px; }
+  .toolbar-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .toolbar-grid > *:nth-child(1),
+  .toolbar-grid > *:nth-child(2) { grid-column: 1 / -1; }
+  .intro-grid { grid-template-columns: 1fr; }
+  .study-card .sc-english { font-size: 1.8rem; }
+  .study-card .sc-chinese { font-size: 1.4rem; }
+}
+
+/* ─── FADE-IN ANIMATION ─── */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-box { animation: cardIn 0.4s ease both; }
+
+/* ─── PULSE DOT ─── */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  display: inline-block;
+  animation: pulse 2s ease infinite;
+}
+
+/* ─── SECTION DIVIDER ─── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 4px 0;
+}
+
+.section-divider::before, .section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-eyebrow"><span class="live-dot"></span> Interactive Learning</div>
+    <h1>Finance Mini Book<br>Taiwan 🇹🇼</h1>
+    <p>Master essential finance vocabulary in English, Traditional Chinese, and Pinyin — designed for students, expats, and professionals navigating Taiwan's financial landscape.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">💰 Basic Finance</span>
+      <span class="hero-tag">🏦 Banking Taiwan</span>
+      <span class="hero-tag">📊 Income & Expenses</span>
+      <span class="hero-tag">📑 Financial Statements</span>
+      <span class="hero-tag">📈 Investing</span>
+      <span class="hero-tag">🧠 Quiz Mode</span>
+    </div>
+    <div class="hero-progress">
+      <div class="hero-progress-label">
+        <span>Learning Progress</span>
+        <strong id="progressText">0 / 25 terms learned</strong>
+      </div>
+      <div class="progress-track">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="toolbar-grid">
+      <input id="searchInput" type="text" placeholder="🔍  Search English, Chinese, or Pinyin…" autocomplete="off"/>
+      <select id="sectionFilter">
+        <option value="all">All Sections</option>
+        <option value="basic">Basic Finance</option>
+        <option value="banking">Banking</option>
+        <option value="income">Income &amp; Expenses</option>
+        <option value="statements">Financial Statements</option>
+        <option value="investing">Investing</option>
+      </select>
+      <button id="flashcardToggle" class="btn-accent">⚡ Flashcard</button>
+      <button id="expandToggle">↕ Collapse All</button>
+      <button id="studyModeToggle" class="btn-study">📖 Study Mode</button>
+      <button onclick="window.print()">🖨 Print</button>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="side-title">Navigation</div>
+      <div class="side-links">
+        <a href="#guide"><span class="dot"></span>How to Use</a>
+        <a href="#basic"><span class="dot"></span>Basic Finance</a>
+        <a href="#banking"><span class="dot"></span>Banking</a>
+        <a href="#income"><span class="dot"></span>Income &amp; Expenses</a>
+        <a href="#statements"><span class="dot"></span>Financial Statements</a>
+        <a href="#investing"><span class="dot"></span>Investing</a>
+        <a href="#quiz"><span class="dot"></span>Quiz</a>
+      </div>
+
+      <div class="side-card">
+        <h3>Progress</h3>
+        <div class="side-stat">
+          <span class="muted" style="font-size:0.82rem">Terms Learned</span>
+          <span class="stat-num" id="sideLearnedCount">0</span>
+        </div>
+        <div class="side-stat">
+          <span class="muted" style="font-size:0.82rem">Visible</span>
+          <span style="font-size:0.88rem; font-weight:600; color:var(--text)" id="visibleCount">0 / 0</span>
+        </div>
+        <div class="progress-track" style="margin-top:8px">
+          <div id="sideFill" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <h3>Quick Reference</h3>
+        <div class="mini-note-row"><span class="chip">收入</span> Money In</div>
+        <div class="mini-note-row"><span class="chip">支出</span> Money Out</div>
+        <div class="mini-note-row"><span class="chip">利潤</span> What Remains</div>
+        <div class="mini-note-row"><span class="chip">儲蓄</span> Saved Money</div>
+        <div class="mini-note-row"><span class="chip">風險</span> Risk</div>
+      </div>
+
+      <div class="side-card">
+        <h3>Study Tip</h3>
+        <p class="muted" style="font-size:0.85rem;line-height:1.65">Start with full mode. Enable <strong style="color:var(--blue-light)">Flashcard Mode</strong> to hide explanations, then test yourself. Use <strong style="color:var(--cyan)">Study Mode</strong> for Duolingo-style one-card-at-a-time learning.</p>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="content" id="mainContent">
+
+      <!-- HOW TO USE -->
+      <section id="guide" class="panel">
+        <div class="intro-grid">
+          <div class="mini-panel">
+            <h2>How to Use</h2>
+            <p>Read the English term, match it with the Traditional Chinese term, and use the pinyin to practice pronunciation. Click <strong style="color:var(--blue-light)">Show Example</strong> on each card to reveal or hide the explanation. Use <strong style="color:var(--blue-light)">Collapse All</strong> to hide examples across all cards at once.</p>
+          </div>
+          <div class="mini-panel">
+            <h2>Flashcard &amp; Study Mode</h2>
+            <p>In <strong style="color:var(--blue-light)">Flashcard Mode</strong>, explanations are hidden — only the term and Chinese are shown. In <strong style="color:var(--cyan)">Study Mode</strong>, learn one card at a time. Tap a card to reveal the back. Mark terms as <strong style="color:var(--green)">Learned</strong> to track your progress.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 1: BASIC FINANCE -->
+      <section id="basic" class="section-box section" data-section="basic">
+        <div class="section-header">
+          <h2><span class="section-num">1</span> Basic Finance Terms</h2>
+          <p class="muted">Core finance vocabulary you will see in class, business news, and everyday financial discussions.</p>
+        </div>
+        <div class="term-grid">
+
+          <article class="term-card searchable" data-section-name="basic" data-keywords="revenue 收入 shou ru income money earned">
+            <div class="badge badge-basic">Basic</div>
+            <div class="term">Revenue</div>
+            <div class="term-line"><span class="label">Chinese:</span> 收入</div>
+            <div class="term-line"><span class="label">Pinyin:</span> shōu rù</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> Revenue is the total money a business earns from selling products or services — before any expenses are deducted.</p>
+              <p><span class="label">Example:</span> The coffee shop's revenue comes from selling drinks and snacks.</p>
+              <p><span class="label">中文例句:</span> 這家咖啡店的收入來自賣飲料和點心。</p>
+              <p class="muted">zhè jiā kā fēi diàn de shōu rù lái zì mài yǐn liào hé diǎn xīn</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Revenue">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="basic" data-keywords="expense 支出 zhi chu cost spending">
+            <div class="badge badge-basic">Basic</div>
+            <div class="term">Expense</div>
+            <div class="term-line"><span class="label">Chinese:</span> 支出</div>
+            <div class="term-line"><span class="label">Pinyin:</span> zhī chū</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> An expense is money spent on things needed to run a business or daily life — such as rent, food, transport, or supplies.</p>
+              <p><span class="label">Example:</span> Rent is usually a major monthly expense for students in Taipei.</p>
+              <p><span class="label">中文例句:</span> 在台北，房租通常是學生每月很大的支出。</p>
+              <p class="muted">zài tái běi, fáng zū tōng cháng shì xué shēng měi yuè hěn dà de zhī chū</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Expense">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="basic" data-keywords="profit 利潤 li run gain earnings">
+            <div class="badge badge-basic">Basic</div>
+            <div class="term">Profit</div>
+            <div class="term-line"><span class="label">Chinese:</span> 利潤</div>
+            <div class="term-line"><span class="label">Pinyin:</span> lì rùn</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> Profit is what remains after all expenses are subtracted from revenue. Positive profit means the business earned more than it spent.</p>
+              <p><span class="label">Example:</span> If a store earns NT$10,000 and spends NT$7,000, its profit is NT$3,000.</p>
+              <p><span class="label">中文例句:</span> 如果商店收入一萬、支出七千，它的利潤就是三千。</p>
+              <p class="muted">rú guǒ shāng diàn shōu rù yí wàn, zhī chū qī qiān, tā de lì rùn jiù shì sān qiān</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Profit">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="basic" data-keywords="asset 資產 zi chan property value owned">
+            <div class="badge badge-basic">Basic</div>
+            <div class="term">Asset</div>
+            <div class="term-line"><span class="label">Chinese:</span> 資產</div>
+            <div class="term-line"><span class="label">Pinyin:</span> zī chǎn</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> An asset is anything valuable that a person or company owns — including cash, property, equipment, or investments.</p>
+              <p><span class="label">Example:</span> Cash in the bank and a company car are both assets.</p>
+              <p><span class="label">中文例句:</span> 銀行裡的現金和公司的車都算是資產。</p>
+              <p class="muted">yín háng lǐ de xiàn jīn hé gōng sī de chē dōu suàn shì zī chǎn</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Asset">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="basic" data-keywords="liability 負債 fu zhai debt owe loan">
+            <div class="badge badge-basic">Basic</div>
+            <div class="term">Liability</div>
+            <div class="term-line"><span class="label">Chinese:</span> 負債</div>
+            <div class="term-line"><span class="label">Pinyin:</span> fù zhài</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> A liability is a financial obligation — money that a person or company owes to others, such as loans, credit card debt, or unpaid bills.</p>
+              <p><span class="label">Example:</span> A bank loan is a liability because the money must be paid back.</p>
+              <p><span class="label">中文例句:</span> 銀行貸款是一種負債，因為之後要還錢。</p>
+              <p class="muted">yín háng dài kuǎn shì yì zhǒng fù zhài, yīn wèi zhī hòu yào huán qián</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Liability">Mark Learned</button>
+            </div>
+          </article>
+
+        </div>
+        <div class="remember-box"><strong>Quick Memory:</strong> Revenue is money in, expense is money out, and profit is what stays after costs. Asset = what you own, Liability = what you owe.</div>
+      </section>
+
+      <!-- SECTION 2: BANKING -->
+      <section id="banking" class="section-box section" data-section="banking">
+        <div class="section-header">
+          <h2><span class="section-num">2</span> Banking in Taiwan</h2>
+          <p class="muted">Useful banking words for opening an account, using ATMs, and handling everyday money matters in Taiwan.</p>
+        </div>
+        <div class="term-grid">
+
+          <article class="term-card searchable" data-section-name="banking" data-keywords="bank account 銀行帳戶 yin hang zhang hu arc open">
+            <div class="badge badge-banking">Banking</div>
+            <div class="term">Bank Account</div>
+            <div class="term-line"><span class="label">Chinese:</span> 銀行帳戶</div>
+            <div class="term-line"><span class="label">Pinyin:</span> yín háng zhàng hù</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> A bank account is a secure place at a financial institution where you keep and manage your money.</p>
+              <p><span class="label">Example:</span> Many foreign students open a bank account after getting their ARC in Taiwan.</p>
+              <p><span class="label">中文例句:</span> 很多外國學生拿到居留證後會開銀行帳戶。</p>
+              <p class="muted">hěn duō wài guó xué shēng ná dào jū liú zhèng hòu huì kāi yín háng zhàng hù</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Bank Account">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="banking" data-keywords="deposit 存款 cun kuan put in atm">
+            <div class="badge badge-banking">Banking</div>
+            <div class="term">Deposit</div>
+            <div class="term-line"><span class="label">Chinese:</span> 存款</div>
+            <div class="term-line"><span class="label">Pinyin:</span> cún kuǎn</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> A deposit means putting money into your bank account — either at the counter, via ATM, or through mobile banking.</p>
+              <p><span class="label">Example:</span> Some ATMs in Taiwan allow you to make deposits directly.</p>
+              <p><span class="label">中文例句:</span> 在台灣，有些提款機可以直接存款。</p>
+              <p class="muted">zài tái wān, yǒu xiē tí kuǎn jī kě yǐ zhí jiē cún kuǎn</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Deposit">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="banking" data-keywords="withdrawal 提款 ti kuan take out cash atm">
+            <div class="badge badge-banking">Banking</div>
+            <div class="term">Withdrawal</div>
+            <div class="term-line"><span class="label">Chinese:</span> 提款</div>
+            <div class="term-line"><span class="label">Pinyin:</span> tí kuǎn</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> A withdrawal means taking money out of your bank account — at an ATM, bank counter, or app.</p>
+              <p><span class="label">Example:</span> I made a cash withdrawal before paying my rent.</p>
+              <p><span class="label">中文例句:</span> 我付房租前先去提款。</p>
+              <p class="muted">wǒ fù fáng zū qián xiān qù tí kuǎn</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Withdrawal">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="banking" data-keywords="transfer 轉帳 zhuan zhang send money landlord">
+            <div class="badge badge-banking">Banking</div>
+            <div class="term">Transfer</div>
+            <div class="term-line"><span class="label">Chinese:</span> 轉帳</div>
+            <div class="term-line"><span class="label">Pinyin:</span> zhuǎn zhàng</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> A transfer is electronically sending money from one bank account to another — common for paying rent, splitting bills, or sending money home.</p>
+              <p><span class="label">Example:</span> I transfer rent to my landlord every month.</p>
+              <p><span class="label">中文例句:</span> 我每個月都轉帳房租給房東。</p>
+              <p class="muted">wǒ měi gè yuè dōu zhuǎn zhàng fáng zū gěi fáng dōng</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Transfer">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="banking" data-keywords="balance 餘額 yu e remaining left account">
+            <div class="badge badge-banking">Banking</div>
+            <div class="term">Balance</div>
+            <div class="term-line"><span class="label">Chinese:</span> 餘額</div>
+            <div class="term-line"><span class="label">Pinyin:</span> yú é</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> Balance is the total amount of money currently in your bank account — what's left after deposits and withdrawals.</p>
+              <p><span class="label">Example:</span> You can check your balance using your banking app anytime.</p>
+              <p><span class="label">中文例句:</span> 你可以用手機銀行查看帳戶餘額。</p>
+              <p class="muted">nǐ kě yǐ yòng shǒu jī yín háng chá kàn zhàng hù yú é</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Balance">Mark Learned</button>
+            </div>
+          </article>
+
+        </div>
+        <div class="remember-box"><strong>Quick Memory:</strong> 存款 = money goes in, 提款 = money comes out, 轉帳 = money moves between accounts, 餘額 = what's left.</div>
+      </section>
+
+      <!-- SECTION 3: INCOME & EXPENSES -->
+      <section id="income" class="section-box section" data-section="income">
+        <div class="section-header">
+          <h2><span class="section-num">3</span> Income &amp; Expenses</h2>
+          <p class="muted">Daily budgeting words for salary, spending, and managing student life in Taiwan.</p>
+        </div>
+        <div class="term-grid">
+
+          <article class="term-card searchable" data-section-name="income" data-keywords="salary 薪水 xin shui wage pay monthly">
+            <div class="badge badge-income">Income</div>
+            <div class="term">Salary</div>
+            <div class="term-line"><span class="label">Chinese:</span> 薪水</div>
+            <div class="term-line"><span class="label">Pinyin:</span> xīn shuǐ</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> Salary is the regular, fixed amount of money you receive from your employer in exchange for your work.</p>
+              <p><span class="label">Example:</span> My part-time salary is paid at the end of each month.</p>
+              <p><span class="label">中文例句:</span> 我的打工薪水在每個月底發。</p>
+              <p class="muted">wǒ de dǎ gōng xīn shuǐ zài měi gè yuè dǐ fā</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Salary">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="income" data-keywords="budget 預算 yu suan plan allocation monthly">
+            <div class="badge badge-income">Income</div>
+            <div class="term">Budget</div>
+            <div class="term-line"><span class="label">Chinese:</span> 預算</div>
+            <div class="term-line"><span class="label">Pinyin:</span> yù suàn</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> A budget is a financial plan that allocates your income toward different categories of spending and saving.</p>
+              <p><span class="label">Example:</span> I made a monthly budget for food, transport, and rent.</p>
+              <p><span class="label">中文例句:</span> 我做了每月的預算，分配食物、交通和房租。</p>
+              <p class="muted">wǒ zuò le měi yuè de yù suàn, fēn pèi shí wù, jiāo tōng hé fáng zū</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Budget">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="income" data-keywords="living expenses 生活費 sheng huo fei daily cost taipei">
+            <div class="badge badge-income">Income</div>
+            <div class="term">Living Expenses</div>
+            <div class="term-line"><span class="label">Chinese:</span> 生活費</div>
+            <div class="term-line"><span class="label">Pinyin:</span> shēng huó fèi</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> Living expenses are the total costs of everyday life — including food, rent, transportation, utilities, and personal care.</p>
+              <p><span class="label">Example:</span> Living expenses in Taipei are often higher than in smaller cities.</p>
+              <p><span class="label">中文例句:</span> 台北的生活費通常比小城市高。</p>
+              <p class="muted">tái běi de shēng huó fèi tōng cháng bǐ xiǎo chéng shì gāo</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Living Expenses">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="income" data-keywords="savings 儲蓄 chu xu save future money bank">
+            <div class="badge badge-income">Income</div>
+            <div class="term">Savings</div>
+            <div class="term-line"><span class="label">Chinese:</span> 儲蓄</div>
+            <div class="term-line"><span class="label">Pinyin:</span> chǔ xù</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> Savings is money you set aside and don't spend — kept for future goals, emergencies, or investments.</p>
+              <p><span class="label">Example:</span> I put part of my salary into savings every month.</p>
+              <p><span class="label">中文例句:</span> 我每個月都把一部分薪水存成儲蓄。</p>
+              <p class="muted">wǒ měi gè yuè dōu bǎ yí bù fèn xīn shuǐ cún chéng chǔ xù</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Savings">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="income" data-keywords="discount 折扣 zhe kou sale reduced price cheaper">
+            <div class="badge badge-income">Income</div>
+            <div class="term">Discount</div>
+            <div class="term-line"><span class="label">Chinese:</span> 折扣</div>
+            <div class="term-line"><span class="label">Pinyin:</span> zhé kòu</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> A discount is a reduction from the original price — often expressed as a percentage off.</p>
+              <p><span class="label">Example:</span> Students often look for discounts before buying textbooks.</p>
+              <p><span class="label">中文例句:</span> 學生買課本前常常會先找折扣。</p>
+              <p class="muted">xué shēng mǎi kè běn qián cháng cháng huì xiān zhǎo zhé kòu</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Discount">Mark Learned</button>
+            </div>
+          </article>
+
+        </div>
+        <div class="remember-box"><strong>Quick Memory:</strong> Salary gives you income, a budget guides spending, savings protect your future, and discounts reduce what you spend.</div>
+      </section>
+
+      <!-- SECTION 4: FINANCIAL STATEMENTS -->
+      <section id="statements" class="section-box section" data-section="statements">
+        <div class="section-header">
+          <h2><span class="section-num">4</span> Financial Statements</h2>
+          <p class="muted">Main accounting terms used to read and interpret company performance and financial health.</p>
+        </div>
+        <div class="term-grid">
+
+          <article class="term-card searchable" data-section-name="statements" data-keywords="balance sheet 資產負債表 zi chan fu zhai biao snapshot assets liabilities equity">
+            <div class="badge badge-statements">Statements</div>
+            <div class="term">Balance Sheet</div>
+            <div class="term-line"><span class="label">Chinese:</span> 資產負債表</div>
+            <div class="term-line"><span class="label">Pinyin:</span> zī chǎn fù zhài biǎo</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> A balance sheet is a financial snapshot showing a company's assets, liabilities, and equity at a specific point in time.</p>
+              <p><span class="label">Example:</span> Investors use the balance sheet to see what a company owns and owes.</p>
+              <p><span class="label">中文例句:</span> 投資人會看資產負債表來了解公司擁有什麼和欠什麼。</p>
+              <p class="muted">tóu zī rén huì kàn zī chǎn fù zhài biǎo lái liǎo jiě gōng sī yōng yǒu shén me hé qiàn shén me</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Balance Sheet">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="statements" data-keywords="income statement 損益表 sun yi biao profit loss period">
+            <div class="badge badge-statements">Statements</div>
+            <div class="term">Income Statement</div>
+            <div class="term-line"><span class="label">Chinese:</span> 損益表</div>
+            <div class="term-line"><span class="label">Pinyin:</span> sǔn yì biǎo</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> An income statement (P&amp;L) shows a company's revenue, expenses, and profit over a specific time period.</p>
+              <p><span class="label">Example:</span> We can use the income statement to see whether the company made money this year.</p>
+              <p><span class="label">中文例句:</span> 我們可以從損益表看出公司今年有沒有賺錢。</p>
+              <p class="muted">wǒ men kě yǐ cóng sǔn yì biǎo kàn chū gōng sī jīn nián yǒu méi yǒu zhuàn qián</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Income Statement">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="statements" data-keywords="cash flow statement 現金流量表 xian jin liu liang biao movement operating">
+            <div class="badge badge-statements">Statements</div>
+            <div class="term">Cash Flow Statement</div>
+            <div class="term-line"><span class="label">Chinese:</span> 現金流量表</div>
+            <div class="term-line"><span class="label">Pinyin:</span> xiàn jīn liú liàng biǎo</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> A cash flow statement tracks how cash enters and leaves a company — covering operating, investing, and financing activities.</p>
+              <p><span class="label">Example:</span> A company can be profitable but still have weak cash flow.</p>
+              <p><span class="label">中文例句:</span> 公司可能有利潤，但現金流還是可能很弱。</p>
+              <p class="muted">gōng sī kě néng yǒu lì rùn, dàn xiàn jīn liú hái shì kě néng hěn ruò</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Cash Flow Statement">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="statements" data-keywords="equity 權益 quan yi ownership shareholder net assets">
+            <div class="badge badge-statements">Statements</div>
+            <div class="term">Equity</div>
+            <div class="term-line"><span class="label">Chinese:</span> 權益</div>
+            <div class="term-line"><span class="label">Pinyin:</span> quán yì</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> Equity (also called net assets) is the owner's residual interest — what's left when you subtract liabilities from total assets.</p>
+              <p><span class="label">Example:</span> If assets grow faster than liabilities, equity usually increases.</p>
+              <p><span class="label">中文例句:</span> 如果資產增加得比負債快，權益通常也會增加。</p>
+              <p class="muted">rú guǒ zī chǎn zēng jiā de bǐ fù zhài kuài, quán yì tōng cháng yě huì zēng jiā</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Equity">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="statements" data-keywords="net profit 淨利 jing li final earnings after tax bottom line">
+            <div class="badge badge-statements">Statements</div>
+            <div class="term">Net Profit</div>
+            <div class="term-line"><span class="label">Chinese:</span> 淨利</div>
+            <div class="term-line"><span class="label">Pinyin:</span> jìng lì</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> Net profit is the bottom-line result — revenue minus all expenses, interest, and taxes. It's the true measure of what the company earned.</p>
+              <p><span class="label">Example:</span> Investors care about net profit because it reflects the company's final earnings.</p>
+              <p><span class="label">中文例句:</span> 投資人很重視淨利，因為它代表公司的最後獲利。</p>
+              <p class="muted">tóu zī rén hěn zhòng shì jìng lì, yīn wèi tā dài biǎo gōng sī de zuì hòu huò lì</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Net Profit">Mark Learned</button>
+            </div>
+          </article>
+
+        </div>
+        <div class="remember-box"><strong>Quick Memory:</strong> Balance sheet = snapshot in time. Income statement = performance over time. Cash flow statement = real cash movement. Net profit = the final number.</div>
+      </section>
+
+      <!-- SECTION 5: INVESTING -->
+      <section id="investing" class="section-box section" data-section="investing">
+        <div class="section-header">
+          <h2><span class="section-num">5</span> Investing Basics</h2>
+          <p class="muted">Starter vocabulary for understanding stocks, bonds, returns, risk, and building a portfolio.</p>
+        </div>
+        <div class="term-grid">
+
+          <article class="term-card searchable" data-section-name="investing" data-keywords="stock 股票 gu piao share ownership company equity">
+            <div class="badge badge-investing">Investing</div>
+            <div class="term">Stock</div>
+            <div class="term-line"><span class="label">Chinese:</span> 股票</div>
+            <div class="term-line"><span class="label">Pinyin:</span> gǔ piào</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> A stock represents partial ownership in a company. Stockholders may earn dividends and benefit from price appreciation.</p>
+              <p><span class="label">Example:</span> Buying a stock means you own a small part of that company.</p>
+              <p><span class="label">中文例句:</span> 買股票代表你擁有那家公司的一小部分。</p>
+              <p class="muted">mǎi gǔ piào dài biǎo nǐ yōng yǒu nà jiā gōng sī de yì xiǎo bù fèn</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Stock">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="investing" data-keywords="bond 債券 zhai quan lend government interest fixed income">
+            <div class="badge badge-investing">Investing</div>
+            <div class="term">Bond</div>
+            <div class="term-line"><span class="label">Chinese:</span> 債券</div>
+            <div class="term-line"><span class="label">Pinyin:</span> zhài quàn</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> A bond is a debt instrument — you lend money to a government or company, and they repay you with interest over a fixed period.</p>
+              <p><span class="label">Example:</span> People who invest in bonds usually receive regular interest payments.</p>
+              <p><span class="label">中文例句:</span> 投資債券的人通常會收到利息。</p>
+              <p class="muted">tóu zī zhài quàn de rén tōng cháng huì shōu dào lì xí</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Bond">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="investing" data-keywords="risk 風險 feng xian uncertainty loss possibility">
+            <div class="badge badge-investing">Investing</div>
+            <div class="term">Risk</div>
+            <div class="term-line"><span class="label">Chinese:</span> 風險</div>
+            <div class="term-line"><span class="label">Pinyin:</span> fēng xiǎn</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> Risk is the possibility that an investment will lose value or not perform as expected. Higher potential returns usually come with higher risk.</p>
+              <p><span class="label">Example:</span> Higher returns often come with higher risk.</p>
+              <p><span class="label">中文例句:</span> 比較高的報酬通常也有比較高的風險。</p>
+              <p class="muted">bǐ jiào gāo de bào chóu tōng cháng yě yǒu bǐ jiào gāo de fēng xiǎn</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Risk">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="investing" data-keywords="return 報酬 bao chou gain gain loss performance investment">
+            <div class="badge badge-investing">Investing</div>
+            <div class="term">Return</div>
+            <div class="term-line"><span class="label">Chinese:</span> 報酬</div>
+            <div class="term-line"><span class="label">Pinyin:</span> bào chóu</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> Return is the gain or loss generated from an investment — expressed as money or as a percentage of the amount invested.</p>
+              <p><span class="label">Example:</span> Good investments usually aim for stable long-term returns.</p>
+              <p><span class="label">中文例句:</span> 好的投資通常希望有穩定的長期報酬。</p>
+              <p class="muted">hǎo de tóu zī tōng cháng xī wàng yǒu wěn dìng de cháng qī bào chóu</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Return">Mark Learned</button>
+            </div>
+          </article>
+
+          <article class="term-card searchable" data-section-name="investing" data-keywords="portfolio 投資組合 tou zi zu he collection diversify balance">
+            <div class="badge badge-investing">Investing</div>
+            <div class="term">Portfolio</div>
+            <div class="term-line"><span class="label">Chinese:</span> 投資組合</div>
+            <div class="term-line"><span class="label">Pinyin:</span> tóu zī zǔ hé</div>
+            <div class="term-extra">
+              <p><span class="label">Explanation:</span> A portfolio is the complete collection of investments that a person or institution holds — stocks, bonds, cash, real estate, and more.</p>
+              <p><span class="label">Example:</span> Diversifying your investments makes an investment portfolio more balanced.</p>
+              <p><span class="label">中文例句:</span> 分散投資可以讓投資組合更平衡。</p>
+              <p class="muted">fēn sàn tóu zī kě yǐ ràng tóu zī zǔ hé gèng píng héng</p>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn toggle-example">Show Example</button>
+              <button class="card-btn mark-learned" data-term="Portfolio">Mark Learned</button>
+            </div>
+          </article>
+
+        </div>
+        <div class="remember-box"><strong>Quick Memory:</strong> Stock = ownership, Bond = lending, Return = the result, Risk = the uncertainty, Portfolio = the whole collection.</div>
+      </section>
+
+      <!-- QUIZ -->
+      <section id="quiz" class="quiz-box">
+        <h2>🧠 Quiz Section</h2>
+        <p class="muted">Try to answer each question first, then reveal to check your answer. Answered questions count toward your progress!</p>
+        <div class="quiz-grid">
+
+          <div class="quiz-card">
+            <div class="quiz-question">1. Which term means the money a business earns from selling products or services?</div>
+            <div class="quiz-answer">Revenue — 收入 — shōu rù</div>
+            <div class="card-actions"><button class="card-btn reveal-answer">Reveal Answer</button></div>
+          </div>
+
+          <div class="quiz-card">
+            <div class="quiz-question">2. What is the Chinese term for "Balance Sheet"?</div>
+            <div class="quiz-answer">資產負債表 — zī chǎn fù zhài biǎo</div>
+            <div class="card-actions"><button class="card-btn reveal-answer">Reveal Answer</button></div>
+          </div>
+
+          <div class="quiz-card">
+            <div class="quiz-question">3. Which banking action means sending money from one account to another?</div>
+            <div class="quiz-answer">Transfer — 轉帳 — zhuǎn zhàng</div>
+            <div class="card-actions"><button class="card-btn reveal-answer">Reveal Answer</button></div>
+          </div>
+
+          <div class="quiz-card">
+            <div class="quiz-question">4. Which investing term means the possibility of loss or uncertainty?</div>
+            <div class="quiz-answer">Risk — 風險 — fēng xiǎn</div>
+            <div class="card-actions"><button class="card-btn reveal-answer">Reveal Answer</button></div>
+          </div>
+
+          <div class="quiz-card">
+            <div class="quiz-question">5. Which word means money you keep for future use instead of spending now?</div>
+            <div class="quiz-answer">Savings — 儲蓄 — chǔ xù</div>
+            <div class="card-actions"><button class="card-btn reveal-answer">Reveal Answer</button></div>
+          </div>
+
+          <div class="quiz-card">
+            <div class="quiz-question">6. What does 淨利 (jìng lì) mean in English?</div>
+            <div class="quiz-answer">Net Profit — the final profit after all expenses and taxes are deducted.</div>
+            <div class="card-actions"><button class="card-btn reveal-answer">Reveal Answer</button></div>
+          </div>
+
+          <div class="quiz-card">
+            <div class="quiz-question">7. What is the difference between an asset and a liability?</div>
+            <div class="quiz-answer">Asset (資產) = something you own with value. Liability (負債) = money you owe to others.</div>
+            <div class="card-actions"><button class="card-btn reveal-answer">Reveal Answer</button></div>
+          </div>
+
+        </div>
+      </section>
+
+      <div id="noResults" class="no-results">
+        <div class="nr-icon">🔍</div>
+        <p>No terms match your search.<br>Try a different keyword or clear the filter.</p>
+      </div>
+
+      <div class="footer-note">Finance Mini Book Taiwan · Built as a single local HTML file · Works fully offline</div>
+    </main>
+  </div>
+</div>
+
+<!-- STUDY MODE OVERLAY -->
+<div id="studyOverlay" class="study-mode-overlay">
+  <button class="study-close card-btn" id="studyClose">✕</button>
+  <div class="study-progress-text" id="studyProgressText">Card <strong>1</strong> of <strong>25</strong></div>
+  <div class="study-card-wrapper">
+    <div class="study-card" id="studyCard">
+      <div class="sc-badge" id="scBadge">Section</div>
+      <div class="sc-english" id="scEnglish">Term</div>
+      <div class="sc-chinese" id="scChinese">中文</div>
+      <div class="sc-pinyin" id="scPinyin">pīnyīn</div>
+      <div class="sc-back" id="scBack"></div>
+      <div class="sc-tap" id="scTap">👆 Tap to reveal explanation</div>
+    </div>
+  </div>
+  <div class="study-controls">
+    <button id="studyPrev" class="btn-accent">← Prev</button>
+    <button id="studyReveal">Reveal</button>
+    <button id="studyNext" class="btn-accent">Next →</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<script>
+window.onload = function() {
+
+  /* ── DOM REFS ── */
+  var searchInput     = document.getElementById('searchInput');
+  var sectionFilter   = document.getElementById('sectionFilter');
+  var flashcardToggle = document.getElementById('flashcardToggle');
+  var expandToggle    = document.getElementById('expandToggle');
+  var studyModeToggle = document.getElementById('studyModeToggle');
+  var studyOverlay    = document.getElementById('studyOverlay');
+  var studyClose      = document.getElementById('studyClose');
+  var studyCard       = document.getElementById('studyCard');
+  var studyPrev       = document.getElementById('studyPrev');
+  var studyNext       = document.getElementById('studyNext');
+  var studyReveal     = document.getElementById('studyReveal');
+  var studyProgressText = document.getElementById('studyProgressText');
+  var scBadge         = document.getElementById('scBadge');
+  var scEnglish       = document.getElementById('scEnglish');
+  var scChinese       = document.getElementById('scChinese');
+  var scPinyin        = document.getElementById('scPinyin');
+  var scBack          = document.getElementById('scBack');
+  var scTap           = document.getElementById('scTap');
+  var progressFill    = document.getElementById('progressFill');
+  var sideFill        = document.getElementById('sideFill');
+  var progressText    = document.getElementById('progressText');
+  var sideLearnedCount= document.getElementById('sideLearnedCount');
+  var visibleCount    = document.getElementById('visibleCount');
+  var noResults       = document.getElementById('noResults');
+  var toast           = document.getElementById('toast');
+
+  /* ── STATE ── */
+  var flashcardOn  = false;
+  var allExpanded  = true;
+  var studyOn      = false;
+  var studyIndex   = 0;
+  var studyCards   = [];
+  var learnedTerms = {};
+  var quizAnswered = 0;
+  var TOTAL_TERMS  = document.querySelectorAll('.term-card.searchable').length;
+
+  /* ── LOAD STATE ── */
+  (function loadState() {
+    try {
+      var saved = localStorage.getItem('financeBookState');
+      if (saved) {
+        var s = JSON.parse(saved);
+        learnedTerms = s.learned || {};
+        if (s.flashcardOn) { setFlashcardMode(true, true); }
+        if (s.section && s.section !== 'all') {
+          sectionFilter.value = s.section;
+        }
+      }
+    } catch(e) {}
+    applyLearnedStyles();
+    updateProgress();
+  })();
+
+  /* ── SAVE STATE ── */
+  function saveState() {
+    try {
+      localStorage.setItem('financeBookState', JSON.stringify({
+        learned: learnedTerms,
+        flashcardOn: flashcardOn,
+        section: sectionFilter.value
+      }));
+    } catch(e) {}
+  }
+
+  /* ── TOAST ── */
+  function showToast(msg, icon) {
+    icon = icon || '✓';
+    toast.innerHTML = '<span>' + icon + '</span> ' + msg;
+    toast.className = 'toast show';
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function() {
+      toast.className = 'toast';
+    }, 1800);
+  }
+
+  /* ── PROGRESS ── */
+  function countLearned() {
+    var n = 0;
+    for (var k in learnedTerms) { if (learnedTerms[k]) n++; }
+    return n + quizAnswered;
+  }
+
+  function updateProgress() {
+    var total = TOTAL_TERMS + 7; /* 7 quiz cards */
+    var learned = countLearned();
+    var pct = total > 0 ? Math.min(100, (learned / total) * 100) : 0;
+    progressFill.style.width = pct + '%';
+    sideFill.style.width = pct + '%';
+    sideLearnedCount.textContent = learned;
+    progressText.textContent = learned + ' / ' + total + ' terms learned';
+  }
+
+  function applyLearnedStyles() {
+    var cards = document.querySelectorAll('.term-card.searchable');
+    for (var i = 0; i < cards.length; i++) {
+      var btn = cards[i].querySelector('.mark-learned');
+      if (!btn) continue;
+      var term = btn.getAttribute('data-term');
+      if (learnedTerms[term]) {
+        btn.textContent = '✓ Learned';
+        btn.classList.add('learned');
+        cards[i].style.opacity = '0.75';
+      } else {
+        btn.textContent = 'Mark Learned';
+        btn.classList.remove('learned');
+        cards[i].style.opacity = '';
+      }
+    }
+  }
+
+  /* ── SEARCH + FILTER ── */
+  function escapeReg(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightText(node, keyword) {
+    if (!keyword) return;
+    var re = new RegExp('(' + escapeReg(keyword) + ')', 'gi');
+    var walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null, false);
+    var textNodes = [];
+    var n;
+    while ((n = walker.nextNode())) { textNodes.push(n); }
+    for (var i = 0; i < textNodes.length; i++) {
+      var tn = textNodes[i];
+      if (!re.test(tn.nodeValue)) continue;
+      re.lastIndex = 0;
+      var span = document.createElement('span');
+      span.innerHTML = tn.nodeValue.replace(re, '<mark>$1</mark>');
+      tn.parentNode.replaceChild(span, tn);
+    }
+  }
+
+  function clearHighlights(node) {
+    var marks = node.querySelectorAll('mark');
+    for (var i = 0; i < marks.length; i++) {
+      var m = marks[i];
+      m.outerHTML = m.textContent;
+    }
+  }
+
+  function applySearchAndFilter() {
+    var keyword  = searchInput.value.trim().toLowerCase();
+    var selected = sectionFilter.value;
+    var cards    = document.querySelectorAll('.term-card.searchable');
+    var sections = document.querySelectorAll('.section');
+    var visibleTotal = 0;
+    var i, j;
+
+    /* clear old highlights */
+    for (i = 0; i < cards.length; i++) { clearHighlights(cards[i]); }
+
+    for (i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var sName = card.getAttribute('data-section-name');
+      var rawText = card.innerText.toLowerCase();
+      var extraKeys = (card.getAttribute('data-keywords') || '').toLowerCase();
+      var secOk = (selected === 'all' || selected === sName);
+      var searchOk = true;
+
+      if (keyword) {
+        searchOk = (rawText.indexOf(keyword) > -1 || extraKeys.indexOf(keyword) > -1);
+      }
+
+      if (secOk && searchOk) {
+        card.classList.remove('hidden-card');
+        visibleTotal++;
+        if (keyword) { highlightText(card, keyword); }
+      } else {
+        card.classList.add('hidden-card');
+      }
+    }
+
+    /* hide empty sections */
+    for (j = 0; j < sections.length; j++) {
+      var sec = sections[j];
+      var visible = sec.querySelectorAll('.searchable:not(.hidden-card)');
+      var secAttr = sec.getAttribute('data-section');
+      var secOkOnly = (selected === 'all' || selected === secAttr);
+      if (!secOkOnly || visible.length === 0) {
+        sec.classList.add('hidden-section');
+      } else {
+        sec.classList.remove('hidden-section');
+      }
+    }
+
+    visibleCount.textContent = visibleTotal + ' / ' + TOTAL_TERMS;
+    noResults.classList.toggle('show', visibleTotal === 0 && keyword !== '');
+
+    saveState();
+  }
+
+  /* ── FLASHCARD MODE ── */
+  function setFlashcardMode(state, silent) {
+    flashcardOn = state;
+    if (flashcardOn) {
+      document.body.classList.add('flashcard-on');
+      flashcardToggle.innerHTML = '⚡ Flashcard: ON';
+      flashcardToggle.classList.add('is-active');
+      if (!silent) showToast('Flashcard Mode ON — explanations hidden', '⚡');
+    } else {
+      document.body.classList.remove('flashcard-on');
+      flashcardToggle.innerHTML = '⚡ Flashcard';
+      flashcardToggle.classList.remove('is-active');
+      if (!silent) showToast('Flashcard Mode OFF', '👁');
+    }
+    saveState();
+  }
+
+  /* ── EXPAND / COLLAPSE ALL ── */
+  function setAllExamples(expand) {
+    allExpanded = expand;
+    var extras = document.querySelectorAll('.term-extra');
+    var btns = document.querySelectorAll('.toggle-example');
+    for (var i = 0; i < extras.length; i++) {
+      extras[i].style.display = expand ? '' : 'none';
+    }
+    for (var j = 0; j < btns.length; j++) {
+      btns[j].textContent = expand ? 'Hide Example' : 'Show Example';
+    }
+    expandToggle.textContent = expand ? '↕ Collapse All' : '↕ Expand All';
+  }
+
+  /* ── STUDY MODE ── */
+  function buildStudyCards() {
+    studyCards = [];
+    var cards = document.querySelectorAll('.term-card.searchable:not(.hidden-card)');
+    for (var i = 0; i < cards.length; i++) {
+      var c = cards[i];
+      var termEl  = c.querySelector('.term');
+      var lines   = c.querySelectorAll('.term-line');
+      var extra   = c.querySelector('.term-extra');
+      var badgeEl = c.querySelector('.badge');
+      studyCards.push({
+        english: termEl ? termEl.textContent : '',
+        chinese: lines[0] ? lines[0].textContent.replace('Chinese: ', '').trim() : '',
+        pinyin:  lines[1] ? lines[1].textContent.replace('Pinyin: ', '').trim() : '',
+        back:    extra ? extra.innerHTML : '',
+        badge:   badgeEl ? badgeEl.textContent.trim() : ''
+      });
+    }
+  }
+
+  function renderStudyCard() {
+    if (studyCards.length === 0) {
+      scEnglish.textContent = 'No cards visible';
+      scChinese.textContent = '';
+      scPinyin.textContent = '';
+      scBack.innerHTML = '';
+      studyProgressText.innerHTML = 'No cards';
+      return;
+    }
+    var d = studyCards[studyIndex];
+    studyCard.classList.remove('revealed');
+    scBadge.textContent = d.badge;
+    scEnglish.textContent = d.english;
+    scChinese.textContent = d.chinese;
+    scPinyin.textContent = d.pinyin;
+    scBack.innerHTML = d.back;
+    scTap.style.display = '';
+    studyProgressText.innerHTML = 'Card <strong>' + (studyIndex + 1) + '</strong> of <strong>' + studyCards.length + '</strong>';
+  }
+
+  function openStudyMode() {
+    buildStudyCards();
+    studyIndex = 0;
+    renderStudyCard();
+    studyOverlay.classList.add('active');
+    studyOn = true;
+    studyModeToggle.classList.add('is-active');
+    studyModeToggle.textContent = '✕ Exit Study';
+    showToast('Study Mode started!', '📖');
+  }
+
+  function closeStudyMode() {
+    studyOverlay.classList.remove('active');
+    studyOn = false;
+    studyModeToggle.classList.remove('is-active');
+    studyModeToggle.textContent = '📖 Study Mode';
+  }
+
+  /* ── EVENT DELEGATION ── */
+  document.addEventListener('click', function(e) {
+    var t = e.target;
+
+    /* Flashcard toggle */
+    if (t.id === 'flashcardToggle') {
+      setFlashcardMode(!flashcardOn);
+      return;
+    }
+
+    /* Expand / collapse all */
+    if (t.id === 'expandToggle') {
+      setAllExamples(!allExpanded);
+      return;
+    }
+
+    /* Study mode toggle */
+    if (t.id === 'studyModeToggle') {
+      if (studyOn) { closeStudyMode(); } else { openStudyMode(); }
+      return;
+    }
+
+    /* Study mode controls */
+    if (t.id === 'studyClose') {
+      closeStudyMode();
+      return;
+    }
+
+    if (t.id === 'studyPrev') {
+      studyIndex = (studyIndex - 1 + studyCards.length) % studyCards.length;
+      renderStudyCard();
+      return;
+    }
+
+    if (t.id === 'studyNext') {
+      studyIndex = (studyIndex + 1) % studyCards.length;
+      renderStudyCard();
+      return;
+    }
+
+    if (t.id === 'studyReveal') {
+      studyCard.classList.add('revealed');
+      scTap.style.display = 'none';
+      return;
+    }
+
+    /* Tap study card to reveal */
+    if (t === studyCard || studyCard.contains(t)) {
+      if (!studyCard.classList.contains('revealed')) {
+        studyCard.classList.add('revealed');
+        scTap.style.display = 'none';
+      }
+      return;
+    }
+
+    /* Per-card toggle example */
+    if (t.classList.contains('toggle-example')) {
+      var card = t.closest('.term-card');
+      if (!card) return;
+      var extra = card.querySelector('.term-extra');
+      if (!extra) return;
+      var isHidden = extra.style.display === 'none' || extra.style.display === '';
+      /* treat '' as check computed */
+      var computed = window.getComputedStyle(extra).display;
+      if (computed === 'none') {
+        extra.style.display = 'block';
+        t.textContent = 'Hide Example';
+      } else {
+        extra.style.display = 'none';
+        t.textContent = 'Show Example';
+      }
+      return;
+    }
+
+    /* Mark learned */
+    if (t.classList.contains('mark-learned')) {
+      var termName = t.getAttribute('data-term');
+      if (!termName) return;
+      var cardEl = t.closest('.term-card');
+      if (learnedTerms[termName]) {
+        learnedTerms[termName] = false;
+        t.textContent = 'Mark Learned';
+        t.classList.remove('learned');
+        if (cardEl) cardEl.style.opacity = '';
+        showToast(termName + ' unmarked', '↩');
+      } else {
+        learnedTerms[termName] = true;
+        t.textContent = '✓ Learned';
+        t.classList.add('learned');
+        if (cardEl) cardEl.style.opacity = '0.75';
+        showToast(termName + ' marked as learned! 🎉', '✓');
+      }
+      updateProgress();
+      saveState();
+      return;
+    }
+
+    /* Quiz reveal answer */
+    if (t.classList.contains('reveal-answer')) {
+      var quizCard = t.closest('.quiz-card');
+      if (!quizCard) return;
+      var answer = quizCard.querySelector('.quiz-answer');
+      if (!answer) return;
+      if (answer.style.display === 'block') {
+        answer.style.display = 'none';
+        t.textContent = 'Reveal Answer';
+        if (!quizCard.classList.contains('answered')) {
+          quizCard.classList.remove('answered');
+        }
+      } else {
+        answer.style.display = 'block';
+        t.textContent = 'Hide Answer';
+        if (!quizCard.classList.contains('answered')) {
+          quizCard.classList.add('answered');
+          quizAnswered++;
+          updateProgress();
+        }
+      }
+      return;
+    }
+
+    /* Sidebar nav links — close study mode if open */
+    if (t.closest('.side-links a')) {
+      if (studyOn) closeStudyMode();
+    }
+  });
+
+  /* Keyboard nav for study mode */
+  document.addEventListener('keydown', function(e) {
+    if (!studyOn) return;
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      studyIndex = (studyIndex - 1 + studyCards.length) % studyCards.length;
+      renderStudyCard();
+    } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      if (!studyCard.classList.contains('revealed')) {
+        studyCard.classList.add('revealed');
+        scTap.style.display = 'none';
+      } else {
+        studyIndex = (studyIndex + 1) % studyCards.length;
+        renderStudyCard();
+      }
+    } else if (e.key === 'Escape') {
+      closeStudyMode();
+    }
+  });
+
+  /* Search input */
+  searchInput.addEventListener('input', function() {
+    applySearchAndFilter();
+  });
+
+  /* Section filter */
+  sectionFilter.addEventListener('change', function() {
+    applySearchAndFilter();
+    saveState();
+  });
+
+  /* ── INIT ── */
+  setAllExamples(true);
+  applySearchAndFilter();
+};
+</script>
+</body>
+</html>
