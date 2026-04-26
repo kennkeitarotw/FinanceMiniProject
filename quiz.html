@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz · FinanceEN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page quiz-page">
+
+  <div class="section-header">
+    <div>
+      <h2 style="margin-bottom:2px;">Quiz Mode</h2>
+      <p class="muted" style="font-size:0.82rem;">10 random questions · Active recall · One at a time</p>
+    </div>
+    <div class="streak-pill">🔥 <span data-streak>0</span></div>
+  </div>
+
+  <div id="qSession" class="quiz-session">
+    <!-- Progress -->
+    <div class="quiz-progress-row">
+      <div class="progress-track" style="flex:1;height:5px;"><div class="progress-fill" id="qProgFill" style="width:0%"></div></div>
+      <span class="qp-text" id="qProgText">0/10 answered</span>
+    </div>
+
+    <!-- Question -->
+    <div id="qNum" class="quiz-qnum">Question 1 of 10</div>
+    <div id="qText" class="quiz-question-text">Loading…</div>
+
+    <!-- Options -->
+    <div class="quiz-options" id="qOpts"></div>
+
+    <!-- Feedback -->
+    <div class="quiz-feedback-bar" id="qFeedback"></div>
+
+    <!-- Next -->
+    <div class="quiz-nav">
+      <button class="btn btn-primary" id="qNext" style="display:none;">Next Question →</button>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="quiz-summary" id="qSummary">
+    <div style="font-size:2.5rem;margin-bottom:8px;">🎯</div>
+    <div class="label-sm" style="margin-bottom:4px;">Your Score</div>
+    <div class="qs-score" id="qFinalScore">—</div>
+    <div class="qs-msg" id="qFinalMsg"></div>
+    <div id="qMissedList" style="text-align:left;max-width:480px;margin:0 auto 24px;"></div>
+    <button class="btn btn-primary" id="qRestart">Try Again</button>
+  </div>
+
+</div>
+<nav class="bottom-nav">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="study.html"><span class="nav-icon">🃏</span>Study</a>
+  <a href="browse.html"><span class="nav-icon">🔎</span>Browse</a>
+  <a class="active" href="quiz.html"><span class="nav-icon">🧠</span>Quiz</a>
+  <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+</nav>
+<div class="toast" id="toast"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

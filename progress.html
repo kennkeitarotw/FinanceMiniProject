@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress · FinanceEN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page progress-page">
+
+  <div class="section-header">
+    <h2>Your Progress</h2>
+    <div class="streak-pill">🔥 <span data-streak>0</span>-day streak</div>
+  </div>
+
+  <!-- Overview stats -->
+  <div class="stat-grid" style="margin-bottom:24px;">
+    <div class="stat-card">
+      <div class="stat-val" data-learned-count>0</div>
+      <div class="stat-label">Terms Learned</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" data-hard-count>0</div>
+      <div class="stat-label">Hard Words</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" data-streak>0</div>
+      <div class="stat-label">Day Streak</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">420</div>
+      <div class="stat-label">Total Cards</div>
+    </div>
+  </div>
+
+  <!-- Overall progress bar -->
+  <div style="margin-bottom:24px;">
+    <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:var(--text3);margin-bottom:7px;">
+      <span>Overall Progress</span>
+      <span data-progress-text>0 / 420 learned</span>
+    </div>
+    <div class="progress-track" style="height:10px;border-radius:99px;"><div class="progress-fill" data-progress-fill></div></div>
+  </div>
+
+  <!-- Section progress -->
+  <div class="section-header"><h3>Progress by Section</h3></div>
+  <div id="sectionProgress" style="margin-bottom:24px;"></div>
+
+  <!-- Badges -->
+  <div class="section-header"><h3>Badges</h3></div>
+  <div class="badge-grid" id="badgeGrid"></div>
+
+  <!-- Hard words -->
+  <div class="section-header">
+    <h3>Hard Words</h3>
+    <span class="muted" style="font-size:0.8rem;">Rated hard in Study mode</span>
+  </div>
+  <div class="learned-list" id="hardList" style="margin-bottom:24px;"></div>
+
+  <!-- Learned words -->
+  <div class="section-header">
+    <h3>All Learned Terms</h3>
+    <span class="muted" style="font-size:0.8rem;"><span data-learned-count>0</span> terms</span>
+  </div>
+  <div class="learned-list" id="learnedList" style="margin-bottom:32px;"></div>
+
+  <!-- Reset -->
+  <div style="text-align:center;">
+    <button class="btn btn-red btn-sm" id="resetBtn">Reset All Progress</button>
+  </div>
+
+</div>
+<nav class="bottom-nav">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="study.html"><span class="nav-icon">🃏</span>Study</a>
+  <a href="browse.html"><span class="nav-icon">🔎</span>Browse</a>
+  <a href="quiz.html"><span class="nav-icon">🧠</span>Quiz</a>
+  <a class="active" href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+</nav>
+<div class="toast" id="toast"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

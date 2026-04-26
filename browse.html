@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse · FinanceEN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page browse-page">
+
+  <div class="section-header">
+    <div>
+      <h2 style="margin-bottom:2px;">Browse All Terms</h2>
+      <p class="muted" style="font-size:0.82rem;">Tap any card to expand · Mark as Learned</p>
+    </div>
+    <span class="muted"><span data-learned-count>0</span>/420</span>
+  </div>
+
+  <!-- Scenario highlight (shown when ?scenario= param is set) -->
+  <div id="scenarioBlock" style="display:none;" class="scenario-block">
+    <h2 id="scenarioTitle"></h2>
+    <p class="sb-desc" id="scenarioDesc"></p>
+    <div class="sb-terms" id="scenarioTerms"></div>
+  </div>
+
+  <!-- Filter -->
+  <div class="filter-row">
+    <input type="search" id="searchInput" placeholder="Search terms, explanations, Chinese…">
+    <select id="sectionFilter">
+      <option value="all">All Sections</option>
+      <option value="daily">💴 Daily Money</option>
+      <option value="banking">🏦 Banking in Taiwan</option>
+      <option value="work">💼 Student &amp; Work</option>
+      <option value="business">📊 Business &amp; Finance Class</option>
+      <option value="investing">📈 Investing</option>
+      <option value="grammar">💬 Grammar Patterns</option>
+      <option value="insurance">🛡️ Insurance</option>
+      <option value="fintech">📱 Fintech &amp; Digital Finance</option>
+      <option value="tax">🧾 Personal Finance &amp; Tax</option>
+    </select>
+  </div>
+
+  <div id="noResults">No results found. Try a different search.</div>
+  <div class="term-list" id="termList"></div>
+
+</div>
+<nav class="bottom-nav">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a href="study.html"><span class="nav-icon">🃏</span>Study</a>
+  <a class="active" href="browse.html"><span class="nav-icon">🔎</span>Browse</a>
+  <a href="quiz.html"><span class="nav-icon">🧠</span>Quiz</a>
+  <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+</nav>
+<div class="toast" id="toast"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+// Handle scenario deep-link
+document.addEventListener('DOMContentLoaded', function() {
+  var params = new URLSearchParams(location.search);
+  var sid = params.get('scenario');
+  if (!sid || typeof SCENARIOS === 'undefined') return;
+  var scenario = SCENARIOS.find(function(s){ return s.id === sid; });
+  if (!scenario) return;
+  var block = document.getElementById('scenarioBlock');
+  var title = document.getElementById('scenarioTitle');
+  var desc  = document.getElementById('scenarioDesc');
+  var terms = document.getElementById('scenarioTerms');
+  if (block) block.style.display = '';
+  if (title) title.textContent = scenario.icon + ' ' + scenario.label;
+  if (desc)  desc.textContent  = 'Key vocabulary for this situation:';
+  if (terms) {
+    terms.innerHTML = '';
+    scenario.terms.forEach(function(t) {
+      var chip = document.createElement('span');
+      chip.className = 'scenario-term';
+      chip.textContent = t;
+      chip.addEventListener('click', function() {
+        var input = document.getElementById('searchInput');
+        if (input) { input.value = t; input.dispatchEvent(new Event('input')); }
+      });
+      terms.appendChild(chip);
+    });
+  }
+});
+</script>
+</body>
+</html>

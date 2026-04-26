@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study · FinanceEN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page study-page">
+
+  <div class="section-header">
+    <div>
+      <h2 style="margin-bottom:2px;">Flashcard Session</h2>
+      <p class="muted" style="font-size:0.82rem;">10 cards per session · Tap to flip · Swipe or press 1/2/3</p>
+    </div>
+    <div class="streak-pill">🔥 <span data-streak>0</span></div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="study-toolbar">
+    <span class="label-sm">Section:</span>
+    <select id="sectionFilter">
+      <option value="all">All Topics (shuffle)</option>
+      <option value="daily">💴 Daily Money</option>
+      <option value="banking">🏦 Banking in Taiwan</option>
+      <option value="work">💼 Student &amp; Work</option>
+      <option value="business">📊 Business &amp; Finance Class</option>
+      <option value="investing">📈 Investing</option>
+      <option value="grammar">💬 Grammar Patterns</option>
+      <option value="insurance">🛡️ Insurance</option>
+      <option value="fintech">📱 Fintech &amp; Digital Finance</option>
+      <option value="tax">🧾 Personal Finance &amp; Tax</option>
+      <option value="hard">📌 Hard Words Only</option>
+    </select>
+    <span class="muted" style="margin-left:auto;font-size:0.8rem;"><span data-learned-count>0</span>/420 learned</span>
+  </div>
+
+  <!-- Main session -->
+  <div id="sessionMain">
+    <!-- Progress bar -->
+    <div class="quiz-progress-row" style="margin-bottom:14px;">
+      <div class="progress-track" style="flex:1;height:5px;"><div class="progress-fill" id="fcProgFill" style="width:10%"></div></div>
+      <span class="qp-text" id="fcCounter">1 / 10</span>
+    </div>
+
+    <!-- Flashcard -->
+    <div class="fc-stage">
+      <div class="fc-card-wrap" id="fcWrap">
+
+        <!-- FRONT -->
+        <div class="fc-face fc-front">
+          <span class="badge badge-blue fc-section-badge" id="fcBadge">Daily Money</span>
+          <span class="badge badge-red" id="hwBadge" style="display:none;margin-bottom:8px;">📌 Hard word</span>
+          <div class="fc-english" id="fcEnglish">Cash</div>
+          <div class="fc-hint">Tap card to reveal →</div>
+        </div>
+
+        <!-- BACK -->
+        <div class="fc-face fc-back">
+          <div class="fc-chinese" id="fcChinese">現金</div>
+          <div class="fc-pinyin" id="fcPinyin">xiàn jīn</div>
+          <div class="fc-explanation" id="fcExpl">Cash means physical money, like bills and coins.</div>
+          <div class="fc-example" id="fcExample">Some night markets still prefer cash.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Rate buttons -->
+    <div class="fc-rate-row">
+      <button class="btn btn-hard" id="btnHard">😰 Hard</button>
+      <button class="btn btn-good" id="btnGood">👍 Got it</button>
+      <button class="btn btn-easy" id="btnEasy">⚡ Easy</button>
+    </div>
+    <p class="keyboard-hint">Keyboard: Space = flip · 1 = Hard · 2 = Got it · 3 = Easy</p>
+  </div>
+
+  <!-- Session End -->
+  <div class="session-end" id="sessionEnd">
+    <div class="end-icon">🎉</div>
+    <h2 style="margin-bottom:8px;">Session Complete!</h2>
+    <p id="endMsg" style="margin-bottom:24px;"></p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-primary" id="btnRestart">Next Session</button>
+      <a class="btn btn-ghost" href="progress.html">View Progress</a>
+    </div>
+  </div>
+
+</div>
+<nav class="bottom-nav">
+  <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
+  <a class="active" href="study.html"><span class="nav-icon">🃏</span>Study</a>
+  <a href="browse.html"><span class="nav-icon">🔎</span>Browse</a>
+  <a href="quiz.html"><span class="nav-icon">🧠</span>Quiz</a>
+  <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
+</nav>
+<div class="toast" id="toast"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
