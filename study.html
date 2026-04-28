@@ -3,7 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FinanceEN — 420 practical finance English cards built for international students in Taiwan. Banking, salary, tax, investing, insurance, fintech and more. Free, offline-ready, no login.">
+  <meta name="keywords" content="finance English Taiwan, 財務英文, international student Taiwan, banking vocabulary, fintech English">
+  <meta name="author" content="FinanceEN">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kennkeitarotw.github.io/FinanceMiniProject/">
+  <meta property="og:title" content="Study · FinanceEN">
+  <meta property="og:description" content="420 practical finance English cards for banking, salary, tax, investing, insurance and fintech — built for international students in Taiwan.">
+  <meta property="og:image" content="https://kennkeitarotw.github.io/FinanceMiniProject/og-image.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Study · FinanceEN">
+  <meta name="twitter:description" content="420 practical finance English cards for international students in Taiwan. Free, no login.">
+  <meta name="theme-color" content="#0e0f14">
   <title>Study · FinanceEN</title>
+  <meta name="description" content="Flashcard sessions with spaced repetition. 420 cards, 9 topics.">
+  <meta name="theme-color" content="#0e0f14">
+  <meta property="og:title" content="Study · FinanceEN">
+  <meta property="og:description" content="Flashcard sessions with spaced repetition. 420 cards, 9 topics.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kennkeitarotw.github.io/FinanceMiniProject/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Study · FinanceEN">
+  <meta name="twitter:description" content="Flashcard sessions with spaced repetition. 420 cards, 9 topics.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,7 +33,7 @@
   <div class="section-header">
     <div>
       <h2 style="margin-bottom:2px;">Flashcard Session</h2>
-      <p class="muted" style="font-size:0.82rem;">10 cards per session · Tap to flip · Swipe or press 1/2/3</p>
+      <p class="muted" style="font-size:0.82rem;" id="studySubtitle">10 cards per session · Tap to flip · Swipe or press 1/2/3</p>
     </div>
     <div class="streak-pill">🔥 <span data-streak>0</span></div>
   </div>
@@ -36,7 +57,15 @@
     <span class="muted" style="margin-left:auto;font-size:0.8rem;"><span data-learned-count>0</span>/420 learned</span>
   </div>
 
-  <!-- Main session -->
+  <!-- Empty deck message (Hard Words Only with no hard words) -->
+  <div class="empty-deck-msg" id="emptyDeckMsg">
+    <div class="ed-icon">📌</div>
+    <h3>No hard words yet</h3>
+    <p>Rate cards as "Hard" during a study session and they will appear here for focused review.</p>
+    <a class="btn btn-primary" href="study.html">Study All Topics</a>
+  </div>
+
+    <!-- Main session -->
   <div id="sessionMain">
     <!-- Progress bar -->
     <div class="quiz-progress-row" style="margin-bottom:14px;">
@@ -53,7 +82,11 @@
           <span class="badge badge-blue fc-section-badge" id="fcBadge">Daily Money</span>
           <span class="badge badge-red" id="hwBadge" style="display:none;margin-bottom:8px;">📌 Hard word</span>
           <div class="fc-english" id="fcEnglish">Cash</div>
-          <div class="fc-hint">Tap card to reveal →</div>
+          <div class="fc-hint" id="fcFrontHint">Tap card to reveal →</div>
+          <div id="fcGrammarPrompt" style="display:none;margin-top:12px;width:100%;">
+            <div style="font-size:0.78rem;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em;">Complete the sentence:</div>
+            <div id="fcGrammarFill" style="font-size:1.1rem;color:var(--accent2);font-style:italic;padding:10px 14px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--accent);"></div>
+          </div>
         </div>
 
         <!-- BACK -->

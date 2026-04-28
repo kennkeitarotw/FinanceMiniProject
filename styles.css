@@ -104,10 +104,10 @@ p{line-height:1.7;color:var(--text2);}
 .session-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .session-counter{font-size:0.82rem;color:var(--text3);font-weight:500;}
 .fc-stage{perspective:1000px;margin-bottom:16px;min-height:300px;}
-.fc-card-wrap{position:relative;width:100%;transition:transform 0.48s cubic-bezier(0.4,0,0.2,1);transform-style:preserve-3d;cursor:pointer;}
+.fc-card-wrap{position:relative;width:100%;transition:transform 0.48s cubic-bezier(0.4,0,0.2,1);transform-style:preserve-3d;-webkit-transform-style:preserve-3d;cursor:pointer;}
 .fc-card-wrap.flipped{transform:rotateY(180deg);}
 .fc-face{background:var(--surface);border:1px solid var(--border2);border-radius:22px;padding:36px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px;text-align:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
-.fc-face.fc-back{position:absolute;top:0;left:0;right:0;transform:rotateY(180deg);background:linear-gradient(145deg,var(--surface),var(--surface2));}
+.fc-face.fc-back{position:absolute;top:0;left:0;right:0;transform:rotateY(180deg);-webkit-transform:rotateY(180deg);background:linear-gradient(145deg,var(--surface),var(--surface2));backface-visibility:hidden;-webkit-backface-visibility:hidden;}
 .fc-section-badge{margin-bottom:12px;}
 .fc-english{font-size:2.3rem;font-weight:700;color:var(--text);line-height:1.1;margin-bottom:6px;}
 .fc-hint{font-size:0.8rem;color:var(--text3);margin-top:8px;}
@@ -218,3 +218,13 @@ p{line-height:1.7;color:var(--text2);}
   .badge-grid{grid-template-columns:repeat(3,1fr);}
   .sections-grid{grid-template-columns:1fr 1fr;}
 }
+
+/* Empty deck message */
+.empty-deck-msg{
+  text-align:center;padding:48px 24px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:22px;display:none;
+}
+.empty-deck-msg .ed-icon{font-size:2.5rem;margin-bottom:12px;}
+.empty-deck-msg h3{color:var(--text);margin-bottom:8px;font-size:1rem;text-transform:none;letter-spacing:0;}
+.empty-deck-msg p{font-size:0.88rem;color:var(--text3);margin-bottom:20px;}
