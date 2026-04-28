@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome · FinanceEN</title>
+  <meta name="description" content="Start learning practical finance English for life in Taiwan — free, no login needed.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .onboard-wrap{max-width:480px;margin:0 auto;padding:32px 20px 100px;position:relative;z-index:1;}
+    .onboard-step{display:none;}
+    .onboard-step.active{display:block;}
+
+    /* Step 0 — Welcome */
+    .welcome-hero{text-align:center;padding:40px 0 32px;}
+    .welcome-hero .wh-flag{font-size:3rem;margin-bottom:16px;}
+    .welcome-hero h1{font-size:2rem;margin-bottom:10px;font-family:var(--serif);}
+    .welcome-hero p{color:var(--text2);margin-bottom:24px;line-height:1.7;}
+    .level-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+    .level-card{background:var(--surface);border:1.5px solid var(--border2);border-radius:var(--radius-sm);padding:16px 18px;cursor:pointer;transition:var(--trans);display:flex;align-items:center;gap:14px;}
+    .level-card:hover,.level-card.selected{border-color:var(--accent);background:rgba(108,143,255,0.08);}
+    .level-card .lc-icon{font-size:1.6rem;flex-shrink:0;}
+    .level-card .lc-title{font-size:0.95rem;font-weight:600;color:var(--text);margin-bottom:2px;}
+    .level-card .lc-desc{font-size:0.8rem;color:var(--text3);}
+    .level-card .lc-check{margin-left:auto;font-size:1.1rem;opacity:0;transition:var(--trans);}
+    .level-card.selected .lc-check{opacity:1;}
+
+    /* Step 1 — 5 starter cards */
+    .starter-header{text-align:center;margin-bottom:24px;}
+    .starter-header .sh-badge{display:inline-block;background:rgba(245,197,66,0.15);color:var(--gold2);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;padding:4px 12px;border-radius:40px;margin-bottom:10px;}
+    .starter-header h2{font-size:1.3rem;color:var(--text);margin-bottom:6px;}
+    .starter-header p{font-size:0.85rem;color:var(--text3);}
+    .starter-progress{display:flex;gap:6px;justify-content:center;margin-bottom:24px;}
+    .sp-dot{width:28px;height:4px;border-radius:2px;background:var(--border2);transition:background 0.3s;}
+    .sp-dot.done{background:var(--accent);}
+    .sp-dot.active{background:var(--gold);}
+
+    /* Starter card */
+    .sc-stage{perspective:1000px;margin-bottom:20px;}
+    .sc-card-wrap{position:relative;width:100%;transition:transform 0.45s cubic-bezier(0.4,0,0.2,1);transform-style:preserve-3d;-webkit-transform-style:preserve-3d;cursor:pointer;min-height:260px;}
+    .sc-card-wrap.flipped{transform:rotateY(180deg);}
+    .sc-face{background:var(--surface);border:1.5px solid var(--border2);border-radius:20px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;text-align:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+    .sc-face.sc-back{position:absolute;top:0;left:0;right:0;transform:rotateY(180deg);-webkit-transform:rotateY(180deg);background:linear-gradient(145deg,var(--surface),var(--surface2));}
+    .sc-english{font-size:2rem;font-weight:700;color:var(--text);margin-bottom:6px;}
+    .sc-hint{font-size:0.8rem;color:var(--text3);}
+    .sc-chinese{font-size:1.5rem;font-weight:500;color:var(--text);margin-bottom:4px;}
+    .sc-pinyin{font-size:0.95rem;color:var(--accent2);margin-bottom:12px;}
+    .sc-expl{font-size:0.85rem;color:var(--text2);line-height:1.6;margin-bottom:10px;max-width:320px;}
+    .sc-example{font-size:0.8rem;color:var(--text3);font-style:italic;background:var(--bg3);padding:8px 12px;border-radius:8px;border-left:3px solid var(--accent);text-align:left;width:100%;}
+    .sc-rate-row{display:flex;gap:10px;justify-content:center;margin-top:4px;}
+    .sc-rate-row .btn{flex:1;max-width:140px;}
+
+    /* Step 2 — Done */
+    .done-screen{text-align:center;padding:40px 0;}
+    .done-screen .ds-icon{font-size:3.5rem;margin-bottom:16px;}
+    .done-screen h2{font-size:1.5rem;color:var(--text);margin-bottom:10px;}
+    .done-screen p{color:var(--text2);margin-bottom:28px;max-width:360px;margin-left:auto;margin-right:auto;}
+    .done-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:28px;}
+    .ds-stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 8px;text-align:center;}
+    .ds-stat .dsv{font-size:1.6rem;font-weight:700;color:var(--text);line-height:1;}
+    .ds-stat .dsl{font-size:0.7rem;color:var(--text3);margin-top:3px;}
+  </style>
+</head>
+<body>
+<div class="onboard-wrap">
+
+  <!-- Step 0: Welcome + level select -->
+  <div class="onboard-step active" id="stepWelcome">
+    <div class="welcome-hero">
+      <div class="wh-flag">🇹🇼</div>
+      <h1>Welcome to FinanceEN</h1>
+      <p>Practical finance English for international students in Taiwan.<br>420 cards · No login · Works offline</p>
+    </div>
+    <p class="label-sm" style="margin-bottom:12px;">I am currently…</p>
+    <div class="level-cards">
+      <div class="level-card" data-level="beginner">
+        <div class="lc-icon">🌱</div>
+        <div>
+          <div class="lc-title">New to Taiwan</div>
+          <div class="lc-desc">Just arrived or planning to come — start with daily essentials</div>
+        </div>
+        <div class="lc-check">✓</div>
+      </div>
+      <div class="level-card" data-level="intermediate">
+        <div class="lc-icon">📚</div>
+        <div>
+          <div class="lc-title">Studying or Working</div>
+          <div class="lc-desc">In school or a part-time job — ready for salary, banking, and tax</div>
+        </div>
+        <div class="lc-check">✓</div>
+      </div>
+      <div class="level-card" data-level="advanced">
+        <div class="lc-icon">💼</div>
+        <div>
+          <div class="lc-title">Business or Finance Focus</div>
+          <div class="lc-desc">Taking finance courses or entering the workforce in Taiwan</div>
+        </div>
+        <div class="lc-check">✓</div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-block btn-lg" id="btnStartOnboard" disabled>Start 5-card intro →</button>
+    <div style="text-align:center;margin-top:14px;">
+      <a href="index.html" style="font-size:0.82rem;color:var(--text3);text-decoration:none;">Skip — go straight to the full app</a>
+    </div>
+  </div>
+
+  <!-- Step 1: 5 starter flashcards -->
+  <div class="onboard-step" id="stepCards">
+    <div class="starter-header">
+      <div class="sh-badge">🎯 Quick Start — 5 Essential Cards</div>
+      <h2>Learn 5 terms used every day in Taiwan</h2>
+      <p>Tap the card to reveal · Takes about 3 minutes</p>
+    </div>
+    <div class="starter-progress">
+      <div class="sp-dot active" id="dot0"></div>
+      <div class="sp-dot" id="dot1"></div>
+      <div class="sp-dot" id="dot2"></div>
+      <div class="sp-dot" id="dot3"></div>
+      <div class="sp-dot" id="dot4"></div>
+    </div>
+
+    <div class="sc-stage">
+      <div class="sc-card-wrap" id="scWrap">
+        <div class="sc-face sc-front">
+          <div class="badge badge-blue" id="scBadge">Daily Money</div>
+          <div class="sc-english" id="scEnglish">EasyCard</div>
+          <div class="sc-hint">Tap to reveal →</div>
+        </div>
+        <div class="sc-face sc-back">
+          <div class="sc-chinese" id="scChinese">悠遊卡</div>
+          <div class="sc-pinyin" id="scPinyin">yōu yóu kǎ</div>
+          <div class="sc-expl" id="scExpl">Taiwan's most common prepaid transit and payment card — works on MRT, buses, and most convenience stores.</div>
+          <div class="sc-example" id="scExample">I topped up my EasyCard at 7-Eleven before taking the MRT.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sc-rate-row" id="scRateRow" style="display:none;">
+      <button class="btn btn-hard" id="scHard">😰 Hard</button>
+      <button class="btn btn-easy" id="scGot">👍 Got it</button>
+    </div>
+    <p style="text-align:center;font-size:0.75rem;color:var(--text3);margin-top:8px;" id="scFlipHint">Tap the card first</p>
+  </div>
+
+  <!-- Step 2: Done -->
+  <div class="onboard-step" id="stepDone">
+    <div class="done-screen">
+      <div class="ds-icon">🎉</div>
+      <h2>You're all set!</h2>
+      <p>You just completed your first session. Your progress is saved — come back tomorrow to keep your streak going.</p>
+      <div class="done-stats">
+        <div class="ds-stat"><div class="dsv">5</div><div class="dsl">Cards seen</div></div>
+        <div class="ds-stat"><div class="dsv">1</div><div class="dsl">Day streak</div></div>
+        <div class="ds-stat"><div class="dsv" id="doneGot">0</div><div class="dsl">Got it</div></div>
+      </div>
+      <a class="btn btn-primary btn-block btn-lg" href="index.html" id="btnEnterApp" onclick="try{localStorage.setItem('financeEN_onboarded','1');}catch(e){}">Enter the full app →</a>
+    </div>
+  </div>
+
+<div style="text-align:center;padding:8px 0 4px;"><a href="https://forms.gle/FinanceENFeedback" target="_blank" rel="noopener" style="font-size:0.75rem;color:var(--text3);text-decoration:none;">🐛 Found a mistake? Tell us →</a></div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+/* Onboarding-specific logic */
+(function(){
+  var STARTER_CARDS = [
+    {id:'EasyCard',    section:'Daily Money',       sectionId:'daily',    english:'EasyCard',     chinese:'悠遊卡',   pinyin:'yōu yóu kǎ',    explanation:"Taiwan's most common prepaid transit and payment card — works on MRT, buses, and most convenience stores.",                example:'I topped up my EasyCard at 7-Eleven before taking the MRT.'},
+    {id:'ATM',         section:'Banking in Taiwan', sectionId:'banking',   english:'ATM',          chinese:'提款機',   pinyin:'tí kuǎn jī',    explanation:'A machine for withdrawing cash and doing simple banking. Very common in Taiwan — found in every convenience store.',    example:'I used the ATM inside 7-Eleven to withdraw NT$1,000.'},
+    {id:'Receipt',     section:'Daily Money',       sectionId:'daily',    english:'Invoice / Receipt', chinese:'發票', pinyin:'fā piào',      explanation:"In Taiwan, official receipts (發票) are also lottery tickets — keep them! You might win NT$200 to NT$10 million.",        example:'The cashier asked if I wanted a printed invoice or a digital one.'},
+    {id:'Net Pay',     section:'Student & Work Finance', sectionId:'work', english:'Net Pay',      chinese:'實領薪資', pinyin:'shí lǐng xīn zī', explanation:'The actual amount deposited into your account after tax and insurance are deducted from your gross salary.',          example:'My gross pay was NT$30,000 but my net pay after deductions was NT$27,500.'},
+    {id:'Health Insurance', section:'Insurance',    sectionId:'insurance', english:'NHI Card',     chinese:'健保卡',   pinyin:'jiàn bǎo kǎ',  explanation:"Taiwan's National Health Insurance card — carry it always. After 6 months of residency, most international students qualify.", example:'I showed my NHI card at the clinic and paid only NT$150 for the visit.'},
+  ];
+
+  var idx = 0, gotCount = 0, flipped = false;
+  var selectedLevel = null;
+
+  // Level selection
+  document.querySelectorAll('.level-card').forEach(function(card){
+    card.addEventListener('click', function(){
+      document.querySelectorAll('.level-card').forEach(function(c){ c.classList.remove('selected'); });
+      card.classList.add('selected');
+      selectedLevel = card.getAttribute('data-level');
+      document.getElementById('btnStartOnboard').disabled = false;
+    });
+  });
+
+  document.getElementById('btnStartOnboard').addEventListener('click', function(){
+    // Save level preference
+    try { localStorage.setItem('financeEN_level', selectedLevel); } catch(e){}
+    showStep('stepCards');
+    renderStarterCard();
+  });
+
+  function showStep(id){
+    document.querySelectorAll('.onboard-step').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById(id).classList.add('active');
+  }
+
+  function renderStarterCard(){
+    var c = STARTER_CARDS[idx];
+    flipped = false;
+    var wrap = document.getElementById('scWrap');
+    wrap.classList.remove('flipped');
+    document.getElementById('scBadge').textContent   = c.section;
+    document.getElementById('scEnglish').textContent = c.english;
+    document.getElementById('scChinese').textContent = c.chinese;
+    document.getElementById('scPinyin').textContent  = c.pinyin;
+    document.getElementById('scExpl').textContent    = c.explanation;
+    document.getElementById('scExample').textContent = c.example;
+    document.getElementById('scRateRow').style.display = 'none';
+    document.getElementById('scFlipHint').style.display = '';
+    // Dots
+    for(var i=0;i<5;i++){
+      var dot = document.getElementById('dot'+i);
+      dot.className = 'sp-dot' + (i < idx ? ' done' : i===idx ? ' active' : '');
+    }
+  }
+
+  document.getElementById('scWrap').addEventListener('click', function(){
+    if(flipped) return;
+    flipped = true;
+    this.classList.add('flipped');
+    document.getElementById('scRateRow').style.display = 'flex';
+    document.getElementById('scFlipHint').style.display = 'none';
+  });
+
+  function rateCard(hard){
+    var c = STARTER_CARDS[idx];
+    // Save to SRS via app.js global functions if available
+    if(typeof srsRate === 'function') srsRate(c.id, hard ? 1 : 4);
+    if(!hard) gotCount++;
+    idx++;
+    if(idx >= STARTER_CARDS.length){
+      document.getElementById('doneGot').textContent = gotCount;
+      // Mark onboarding as seen — only now, after completing it
+      try { localStorage.setItem('financeEN_onboarded','1'); } catch(e){}
+      showStep('stepDone');
+    } else {
+      renderStarterCard();
+    }
+  }
+
+  document.getElementById('scHard').addEventListener('click', function(){ rateCard(true); });
+  document.getElementById('scGot').addEventListener('click',  function(){ rateCard(false); });
+
+  // Swipe support
+  var tx=0;
+  document.getElementById('scWrap').addEventListener('touchstart',function(e){ tx=e.touches[0].clientX; },{passive:true});
+  document.getElementById('scWrap').addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>60 && flipped){ dx<0 ? rateCard(true) : rateCard(false); }
+  },{passive:true});
+})();
+</script>
+</body>
+</html>

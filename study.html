@@ -35,7 +35,10 @@
       <h2 style="margin-bottom:2px;">Flashcard Session</h2>
       <p class="muted" style="font-size:0.82rem;" id="studySubtitle">10 cards per session · Tap to flip · Swipe or press 1/2/3</p>
     </div>
-    <div class="streak-pill">🔥 <span data-streak>0</span></div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="streak-pill">🔥 <span data-streak>0</span></div>
+      <div id="dueBadge" class="badge badge-blue" style="display:none;">⏰ <span id="dueCount">0</span> due</div>
+    </div>
   </div>
 
   <!-- Toolbar -->
@@ -52,7 +55,14 @@
       <option value="insurance">🛡️ Insurance</option>
       <option value="fintech">📱 Fintech &amp; Digital Finance</option>
       <option value="tax">🧾 Personal Finance &amp; Tax</option>
+      <option value="due">⏰ Due for Review (SRS)</option>
       <option value="hard">📌 Hard Words Only</option>
+    </select>
+    <select id="tierFilter" style="font-size:0.8rem;">
+      <option value="all">All levels</option>
+      <option value="beginner">🌱 Beginner</option>
+      <option value="intermediate">📚 Intermediate</option>
+      <option value="advanced">💼 Advanced</option>
     </select>
     <span class="muted" style="margin-left:auto;font-size:0.8rem;"><span data-learned-count>0</span>/420 learned</span>
   </div>
@@ -120,6 +130,11 @@
     </div>
   </div>
 
+<div style="text-align:center;padding:12px 0 4px;border-top:1px solid var(--border);margin-top:24px;">
+  <a href="https://forms.gle/FinanceENFeedback" target="_blank" rel="noopener" style="font-size:0.78rem;color:var(--text3);text-decoration:none;">
+    🐛 Found a mistake or have feedback? Tell us →
+  </a>
+</div>
 </div>
 <nav class="bottom-nav">
   <a href="index.html"><span class="nav-icon">🏠</span>Home</a>
@@ -129,6 +144,7 @@
   <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
 </nav>
 <div class="toast" id="toast"></div>
+
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>

@@ -16,12 +16,61 @@
   var KEY = 'financeEN_v3';
 
   /* ── State ── */
+  /* ── SM-2 Spaced Repetition ──────────────────────────
+     Each card in srsData: { ef:2.5, interval:1, nextReview:<dateStr>, reps:0 }
+     ef = easiness factor (2.5 default)
+     Ratings: 1=Hard(Again) 3=Good 5=Easy
+  ─────────────────────────────────────────────────── */
+  function srsRate(cardId, rating) {
+    // rating: 1=Hard, 3=Good, 5=Easy
+    var S = _getState();
+    var d = S.srsData[cardId] || {ef:2.5, interval:1, reps:0};
+    if (rating >= 3) {
+      if (d.reps === 0)      d.interval = 1;
+      else if (d.reps === 1) d.interval = 3;
+      else                   d.interval = Math.round(d.interval * d.ef);
+      d.reps++;
+      d.ef = Math.max(1.3, d.ef + 0.1 - (5-rating)*(0.08+(5-rating)*0.02));
+      S.learned[cardId] = true;
+      delete S.hardWords[cardId];
+    } else {
+      // Hard — reset interval, tag as hard
+      d.reps = 0; d.interval = 1;
+      d.ef = Math.max(1.3, d.ef - 0.2);
+      S.hardWords[cardId] = (S.hardWords[cardId]||0)+1;
+      delete S.learned[cardId];
+    }
+    var next = new Date();
+    next.setDate(next.getDate() + d.interval);
+    d.nextReview = next.getFullYear()+'-'+(next.getMonth()+1)+'-'+next.getDate();
+    S.srsData[cardId] = d;
+    _setState(S);
+  }
+  window.srsRate = srsRate; // expose for onboard.html
+
+  function getDueCards() {
+    var S = _getState();
+    var td = todayStr();
+    return VOCAB.filter(function(v){
+      var d = S.srsData[v.id];
+      if (!d) return true; // never seen
+      return d.nextReview <= td;
+    });
+  }
+
+  // Internal state accessor so onboard can call srsRate before full init
+  var _S = null;
+  function _getState() { if(!_S) _S = load(); return _S; }
+  function _setState(s) { _S = s; save(); }
+
   function defaultState() {
     return {
       learned: {}, hardWords: {}, easyWords: {},
-      quizAnswers: [],   // {sectionId, status:'correct'|'wrong'}
-      streak: 0, lastStudyDate: null,
-      totalSessions: 0, badges: {}
+      srsData: {},          // cardId -> {ef, interval, reps, nextReview}
+      quizAnswers: [],
+      streak: 0, streakFreezes: 1, lastStudyDate: null,
+      totalSessions: 0, badges: {},
+      level: null           // 'beginner'|'intermediate'|'advanced'
     };
   }
 
@@ -50,16 +99,23 @@
           } catch(e) {}
         }
       }
-      return defaultState();
+      // Fresh state — read level set during onboarding
+      var freshState = defaultState();
+      try {
+        var lvl = localStorage.getItem('financeEN_level');
+        if (lvl) freshState.level = lvl;
+      } catch(e){}
+      return freshState;
     } catch(e) { return defaultState(); }
   }
 
   function save() {
+    _S = S;
     try { localStorage.setItem(KEY, JSON.stringify(S)); }
     catch(e) { /* private/incognito — silently continue */ }
   }
 
-  var S = load();
+  var S = load(); _S = S; // sync with _getState
 
   /* ── DOM helpers ── */
   function qs(sel, root)  { return (root || document).querySelector(sel); }
@@ -73,10 +129,27 @@
 
   function checkStreak() {
     var td = todayStr();
-    if (S.lastStudyDate === td) return; // already counted today
+    if (S.lastStudyDate === td) return;
+
     var prev = new Date(); prev.setDate(prev.getDate()-1);
     var yd = prev.getFullYear()+'-'+(prev.getMonth()+1)+'-'+prev.getDate();
-    S.streak = (S.lastStudyDate === yd) ? (S.streak||0)+1 : 1;
+
+    if (S.lastStudyDate === yd) {
+      // Studied yesterday — continue streak
+      S.streak = (S.streak||0)+1;
+    } else if (S.lastStudyDate) {
+      // Missed at least one day
+      if ((S.streakFreezes||0) > 0 && S.streak > 0) {
+        // Use a freeze to save the streak
+        S.streakFreezes--;
+        // Don't increment streak, but preserve it
+        setTimeout(function(){ showToast('🧊 Streak freeze used! ' + S.streakFreezes + ' remaining'); }, 800);
+      } else {
+        S.streak = 1; // Reset
+      }
+    } else {
+      S.streak = 1; // First ever session
+    }
     S.lastStudyDate = td;
     save();
   }
@@ -147,7 +220,12 @@
     BADGE_DEFS.forEach(function(b){
       if (!S.badges[b.id] && b.check()) { S.badges[b.id]=true; got.push(b); }
     });
+    // Earn a streak freeze at 7-day streak
+    if (S.streak >= 7 && (S.streakFreezes||0) < 2) {
+      S.streakFreezes = Math.min(2, (S.streakFreezes||0)+1);
+    }
     if (got.length) { save(); setTimeout(function(){ showToast('🎉 Badge: '+got[0].name+' '+got[0].icon); }, 700); }
+    else { save(); }
   }
 
   /* ── Global UI update ── */
@@ -161,6 +239,94 @@
     qsa('[data-hard-count]').forEach(function(el){ el.textContent=hardCount(); });
   }
 
+
+  /* ── Shareable Score Card ─────────────────────────────── */
+  function generateShareCard(score, total, sectionLabel) {
+    var canvas = document.createElement('canvas');
+    canvas.width = 800; canvas.height = 420;
+    var ctx = canvas.getContext('2d');
+
+    // Background
+    var bg = ctx.createLinearGradient(0,0,800,420);
+    bg.addColorStop(0,'#0e0f14'); bg.addColorStop(1,'#1c1d28');
+    ctx.fillStyle = bg; ctx.fillRect(0,0,800,420);
+
+    // Accent glow
+    var glow = ctx.createRadialGradient(150,100,10,150,100,300);
+    glow.addColorStop(0,'rgba(108,143,255,0.15)');
+    glow.addColorStop(1,'rgba(108,143,255,0)');
+    ctx.fillStyle=glow; ctx.fillRect(0,0,800,420);
+
+    // Border
+    ctx.strokeStyle='rgba(108,143,255,0.3)';
+    ctx.lineWidth=2;
+    ctx.strokeRect(1,1,798,418);
+
+    // Flag + brand
+    ctx.font='bold 14px system-ui,sans-serif';
+    ctx.fillStyle='#8faeff';
+    ctx.letterSpacing='2px';
+    ctx.fillText('🇹🇼  FINANCEЕН', 48, 58);
+
+    // Score
+    ctx.font='bold 96px system-ui,sans-serif';
+    ctx.fillStyle='#ecedf8';
+    ctx.fillText(score+'/'+total, 48, 180);
+
+    // Section label
+    ctx.font='500 22px system-ui,sans-serif';
+    ctx.fillStyle='#9b9cb8';
+    ctx.fillText(sectionLabel || 'Quiz Score', 48, 220);
+
+    // Learned count
+    var lc = learnedCount();
+    ctx.font='bold 18px system-ui,sans-serif';
+    ctx.fillStyle='#3ecf82';
+    ctx.fillText('✓  '+lc+' / '+VOCAB.length+' terms learned', 48, 270);
+
+    // Streak
+    ctx.font='bold 18px system-ui,sans-serif';
+    ctx.fillStyle='#f5c542';
+    ctx.fillText('🔥  '+S.streak+'-day streak', 48, 304);
+
+    // URL
+    ctx.font='14px system-ui,sans-serif';
+    ctx.fillStyle='rgba(255,255,255,0.25)';
+    ctx.fillText('kennkeitarotw.github.io/FinanceMiniProject/', 48, 390);
+
+    // Right side decorative card
+    ctx.fillStyle='rgba(30,31,46,0.9)';
+    roundRect(ctx,540,60,220,140,12);
+    ctx.fillStyle='rgba(108,143,255,0.3)'; ctx.font='bold 10px system-ui'; ctx.fillText('FINANCE ENGLISH',555,90);
+    ctx.fillStyle='#ecedf8'; ctx.font='bold 28px Georgia,serif'; ctx.fillText('FinanceEN',555,130);
+    ctx.fillStyle='#9b9cb8'; ctx.font='16px system-ui'; ctx.fillText('Taiwan · 台灣',555,158);
+
+    return canvas;
+  }
+
+  function roundRect(ctx,x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+    ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+    ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+    ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y);
+    ctx.closePath(); ctx.fill();
+  }
+
+  function shareScore(score, total, label) {
+    var canvas = generateShareCard(score, total, label);
+    canvas.toBlob(function(blob) {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = 'FinanceEN-score.png';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('📸 Score card saved — share it on LINE!');
+    });
+  }
+  window.shareScore = shareScore;
+
   /* ════════════════════════════════════════
      HOME PAGE
   ════════════════════════════════════════ */
@@ -168,6 +334,17 @@
     if (!qs('.home-page')) return;
     checkStreak();
     updateUI();
+
+    // Show due-for-review link if cards are overdue
+    var dueLink  = qs('#dueLink');
+    var herodue  = qs('#herodue');
+    var freezeStat = qs('#freezeStat');
+    var dueNow = getDueCards();
+    if (dueLink && dueNow.length > 0) {
+      dueLink.style.display = '';
+      if (herodue) herodue.textContent = dueNow.length;
+    }
+    if (freezeStat) freezeStat.textContent = S.streakFreezes !== undefined ? S.streakFreezes : 1;
 
     // Section cards — works for ALL sections dynamically
     qsa('.section-card[data-section-id]').forEach(function(card) {
@@ -227,14 +404,12 @@
     function buildDeck() {
       var filter = sectionFilter ? sectionFilter.value : 'all';
 
-      // FIX: Hard Words Only — never silent fallback
       if (filter === 'hard') {
         var hardPool = VOCAB.filter(function(v){ return S.hardWords[v.id]; });
         if (!hardPool.length) {
-          // show empty state — do NOT fall through to all cards
-          if (sessionMain)  sessionMain.style.display = 'none';
-          if (sessionEnd)   sessionEnd.classList.remove('show');
-          if (emptyMsg)     emptyMsg.style.display = '';
+          if (sessionMain) sessionMain.style.display = 'none';
+          if (sessionEnd)  sessionEnd.classList.remove('show');
+          if (emptyMsg)    emptyMsg.style.display = '';
           return [];
         }
         if (emptyMsg) emptyMsg.style.display = 'none';
@@ -243,9 +418,43 @@
 
       if (emptyMsg) emptyMsg.style.display = 'none';
 
-      var pool = (filter==='all')
-        ? VOCAB.slice()
-        : VOCAB.filter(function(v){ return v.sectionId===filter; });
+      // Tier filter
+      var tierFilter = qs('#tierFilter') ? qs('#tierFilter').value : 'all';
+
+      var pool;
+      if (filter === 'due') {
+        // SRS mode — only due cards
+        pool = getDueCards();
+        if (!pool.length) {
+          // All caught up!
+          if (sessionMain) sessionMain.style.display = 'none';
+          if (emptyMsg) {
+            emptyMsg.style.display = '';
+            var em2 = qs('#emptyDeckMsg h3');
+            var em3 = qs('#emptyDeckMsg p');
+            if (em2) em2.textContent = 'All caught up! 🎉';
+            if (em3) em3.textContent = 'No cards are due for review right now. Come back tomorrow to keep your streak.';
+          }
+          return [];
+        }
+      } else if (filter === 'all') {
+        pool = VOCAB.slice();
+      } else {
+        pool = VOCAB.filter(function(v){ return v.sectionId===filter; });
+      }
+
+      // Apply tier filter
+      if (tierFilter && tierFilter !== 'all') {
+        pool = pool.filter(function(v){ return v.tier===tierFilter; });
+      }
+
+      // Apply user level if set and no explicit filters
+      if (filter==='all' && tierFilter==='all' && S.level && S.totalSessions < 3) {
+        var tierMap = {beginner:'beginner', intermediate:'intermediate', advanced:'advanced'};
+        if (tierMap[S.level]) {
+          pool = pool.filter(function(v){ return v.tier===tierMap[S.level] || v.tier==='beginner'; });
+        }
+      }
 
       return shuffle(pool).slice(0, Math.min(10, pool.length));
     }
@@ -288,6 +497,13 @@
     }
 
     function startSession() {
+      // Update due count badge
+      var dueBadge = qs('#dueBadge');
+      var dueCount = qs('#dueCount');
+      var dueCards = getDueCards();
+      if (dueBadge) dueBadge.style.display = dueCards.length ? '' : 'none';
+      if (dueCount) dueCount.textContent = dueCards.length;
+
       deck = buildDeck();
       if (!deck.length) return;
       idx = 0;
@@ -306,6 +522,9 @@
       if (em) em.textContent = hc
         ? hc+' hard word'+(hc!==1?'s':'')+' saved for review. Go to Study → Hard Words Only.'
         : 'Great session — no hard words!';
+      // Show streak freeze count
+      var fi = qs('#freezeInfo');
+      if (fi) fi.textContent = '🧊 Streak freezes: ' + (S.streakFreezes||0) + ' available';
     }
 
     function nextCard() {
@@ -331,20 +550,18 @@
       if (!card) return;
 
       if (t.id==='btnHard') {
-        S.hardWords[card.id] = (S.hardWords[card.id]||0)+1;
-        delete S.learned[card.id];
-        save(); showToast('📌 Added to hard words');
+        srsRate(card.id, 1); // SM-2: Again
+        showToast('📌 See again soon');
         nextCard();
       }
       if (t.id==='btnGood') {
-        S.learned[card.id] = true;
-        save(); nextCard();
+        srsRate(card.id, 3); // SM-2: Good — review in interval days
+        nextCard();
       }
       if (t.id==='btnEasy') {
-        S.learned[card.id] = true;
+        srsRate(card.id, 5); // SM-2: Easy — longer interval
         S.easyWords[card.id] = true;
-        delete S.hardWords[card.id];
-        save(); showToast('⚡ Easy — nice!');
+        showToast('⚡ Easy — next review in ' + (S.srsData[card.id]||{interval:7}).interval + ' days');
         nextCard();
       }
       if (t.id==='btnRestart' || t.id==='btnNextSession') {
@@ -380,6 +597,8 @@
     }
 
     if (sectionFilter) sectionFilter.addEventListener('change', startSession);
+    var tierFilter = qs('#tierFilter');
+    if (tierFilter) tierFilter.addEventListener('change', startSession);
 
     startSession();
     updateUI();
@@ -654,6 +873,12 @@
         if (qSummary)  qSummary.classList.remove('show');
         if (qSession)  qSession.style.display = '';
         renderQ();
+      });
+    }
+    var qShare = qs('#qShare');
+    if (qShare) {
+      qShare.addEventListener('click', function() {
+        shareScore(score, deck.length, 'Quiz — FinanceEN');
       });
     }
 

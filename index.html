@@ -2,6 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <script>
+    /* Onboarding redirect — runs before render, sets flag only after onboard completes */
+    (function(){
+      try {
+        if (!localStorage.getItem('financeEN_onboarded')) {
+          window.location.replace('onboard.html');
+        }
+      } catch(e) {}
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="FinanceEN — 420 practical finance English cards built for international students in Taiwan. Banking, salary, tax, investing, insurance, fintech and more. Free, offline-ready, no login.">
   <meta name="keywords" content="finance English Taiwan, 財務英文, international student Taiwan, banking vocabulary, fintech English">
@@ -40,6 +50,7 @@
     </div>
     <div class="hero-cta-row">
       <a class="btn btn-primary btn-lg" href="study.html">▶ Start Learning</a>
+      <a class="btn btn-ghost" href="study.html?section=due" id="dueLink" style="display:none;">⏰ Review due cards (<span id="herodue">0</span>)</a>
       <a class="btn btn-ghost" href="quiz.html">🧠 Take the Quiz</a>
     </div>
     <div class="hero-progress-label">
@@ -125,8 +136,14 @@
     <div class="stat-card"><div class="stat-val">9</div><div class="stat-label">Topic Sections</div></div>
     <div class="stat-card"><div class="stat-val" data-learned-count>0</div><div class="stat-label">Terms Learned</div></div>
     <div class="stat-card"><div class="stat-val" data-hard-count>0</div><div class="stat-label">Hard Words</div></div>
+    <div class="stat-card"><div class="stat-val" id="freezeStat">1</div><div class="stat-label">🧊 Streak Freezes</div></div>
   </div>
   <p class="muted" style="text-align:center;padding:8px 0 0;">FinanceEN · GitHub Pages · Progress saved locally in your browser</p>
+<div style="text-align:center;padding:12px 0 4px;border-top:1px solid var(--border);margin-top:24px;">
+  <a href="https://forms.gle/FinanceENFeedback" target="_blank" rel="noopener" style="font-size:0.78rem;color:var(--text3);text-decoration:none;">
+    🐛 Found a mistake or have feedback? Tell us →
+  </a>
+</div>
 </div>
 <nav class="bottom-nav">
   <a class="active" href="index.html"><span class="nav-icon">🏠</span>Home</a>
@@ -136,6 +153,7 @@
   <a href="progress.html"><span class="nav-icon">📈</span>Progress</a>
 </nav>
 <div class="toast" id="toast"></div>
+
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>
