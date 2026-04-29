@@ -525,14 +525,14 @@ var QUIZ_BY_SECTION = {
     {q:'"Dividend Reinvestment" means:',     options:['Selling shares for cash','Using dividends to buy more shares','Withdrawing from a fund','Moving to a new broker'],correct:1}
   ],
   grammar: [
-    {q:'What is the Chinese for "Tax Refund"?',   options:['所得稅','退稅','稅','薪資單'],correct:1}
+    {q:'What is the Chinese for "Tax Refund"?',   options:['所得稅','退稅','稅','薪資單'],correct:1},
 
   /* ── Extra Grammar quiz questions ── */
-  {q:'To ask the price of something, you say:',          options:['How much is this?','Can I pay by card?','Please give me a receipt.','I need to check my balance.'],correct:0},
-  {q:'To ask for more time to pay, you say:',            options:['I was overcharged.','Can I get an extension?','My card was declined.','Is there a minimum balance?'],correct:1},
-  {q:'"請幫我開發票" means:',                             options:['Please give me a receipt.','Can I split the payment?','Please issue me a tax invoice.','Does this include tax?'],correct:2},
-  {q:'To report a suspicious charge, you say:',          options:['I would like to cancel.','This charge is incorrect.','Can I pause my subscription?','Is there a grace period?'],correct:1},
-  {q:'"我想銷戶" means:',                                 options:['I want to invest in stocks.','I need a bank statement.','I would like to close my account.','Can I set up autopay?'],correct:2}
+    {q:'To ask the price of something, you say:',          options:['How much is this?','Can I pay by card?','Please give me a receipt.','I need to check my balance.'],correct:0},
+    {q:'To ask for more time to pay, you say:',            options:['I was overcharged.','Can I get an extension?','My card was declined.','Is there a minimum balance?'],correct:1},
+    {q:'"請幫我開發票" means:',                             options:['Please give me a receipt.','Can I split the payment?','Please issue me a tax invoice.','Does this include tax?'],correct:2},
+    {q:'To report a suspicious charge, you say:',          options:['I would like to cancel.','This charge is incorrect.','Can I pause my subscription?','Is there a grace period?'],correct:1},
+    {q:'"我想銷戶" means:',                                 options:['I want to invest in stocks.','I need a bank statement.','I would like to close my account.','Can I set up autopay?'],correct:2}
 
   ],
   insurance: [
